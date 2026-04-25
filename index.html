@@ -8,17 +8,22 @@
 <style>
 body {
     margin: 0;
-    height: 100vh;
-    overflow: hidden;
     background: #043562;
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-family: sans-serif;
+}
+
+/* contenedor principal */
+.wrapper {
+    width: 100%;
+    max-width: 420px; /* controla el ancho en PC */
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
 }
 
 /* ✨ estrellas */
-body::before {
+.wrapper::before {
     content: "";
     position: absolute;
     width: 200%;
@@ -34,23 +39,25 @@ body::before {
     to { transform: translateY(200px); }
 }
 
-/* contenedor */
+/* contenido */
 .container {
     text-align: center;
+    position: relative;
     z-index: 1;
+    padding-top: 60px;
 }
 
 /* título */
 .title {
-    width: 260px;
-    margin-bottom: 20px;
-    animation: fadeDown 1.5s ease;
+    width: 80%;
+    max-width: 260px;
 }
 
 /* ratón */
 .mouse {
-    width: 220px;
-    margin-bottom: 20px;
+    width: 75%;
+    max-width: 220px;
+    margin: 20px 0;
     animation: bounce 2s infinite;
 }
 
@@ -61,7 +68,6 @@ body::before {
     gap: 20px;
 }
 
-/* botones imagen */
 .btn {
     width: 90px;
     cursor: pointer;
@@ -72,12 +78,7 @@ body::before {
     transform: scale(1.1);
 }
 
-/* animaciones */
-@keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
+/* animación ratón */
 @keyframes bounce {
     0%,100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -87,18 +88,19 @@ body::before {
 
 <body>
 
-<div class="container">
+<div class="wrapper">
 
-    <!-- 📝 titulo -->
-    <img src="assets/img/titulo.png" class="title">
+    <div class="container">
 
-    <!-- 🐭 ratón -->
-    <img src="assets/img/raton.png" class="mouse">
+        <img src="assets/img/titulo.png" class="title">
 
-    <!-- botones -->
-    <div class="buttons">
-        <img src="assets/img/yes.png" class="btn" onclick="goNext()">
-        <img src="assets/img/no.png" class="btn" id="noBtn">
+        <img src="assets/img/raton.png" class="mouse">
+
+        <div class="buttons">
+            <img src="assets/img/yes.png" class="btn" onclick="goNext()">
+            <img src="assets/img/no.png" class="btn" id="noBtn">
+        </div>
+
     </div>
 
 </div>
