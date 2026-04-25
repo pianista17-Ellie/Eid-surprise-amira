@@ -55,19 +55,18 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 🏮 FAROLES naturales */
+/* 🏮 FAROLES GRANDES (4) */
 .lamp {
     position: absolute;
-    width: 90px;
+    width: 110px;
     animation: swing 3s ease-in-out infinite;
 }
 
-/* posiciones desordenadas (clave) */
-.l1 { top: -10px; left: 10%; animation-duration: 3s; }
-.l2 { top: 10px; left: 30%; animation-duration: 2.5s; }
-.l3 { top: -5px; left: 50%; animation-duration: 3.5s; }
-.l4 { top: 15px; left: 70%; animation-duration: 2.8s; }
-.l5 { top: 0px; left: 85%; animation-duration: 3.2s; }
+/* posiciones naturales */
+.l1 { top: -10px; left: 15%; animation-duration: 3s; }
+.l2 { top: 15px; left: 35%; animation-duration: 2.6s; }
+.l3 { top: -5px; left: 60%; animation-duration: 3.4s; }
+.l4 { top: 10px; left: 80%; animation-duration: 2.8s; }
 
 /* ☁️ banner */
 .banner {
@@ -80,25 +79,27 @@ body {
     z-index: 1;
 }
 
-/* 🌙 luna (ajustada) */
+/* 🌙 luna (entrada + flotación) */
 .moon {
     position: absolute;
-    top: 400px; /* más abajo */
+    top: 410px;
     left: 50%;
     transform: translateX(-50%);
-    width: 90px; /* más grande */
+    width: 95px;
     z-index: 2;
+    animation: moonIn 1.5s ease forwards, float 4s ease-in-out infinite;
 }
 
-/* ✨ texto (se mantiene abajo dentro del banner) */
+/* ✨ texto (entrada elegante abajo) */
 .text {
     position: absolute;
-    top: 520px;
+    top: 540px;
     left: 50%;
     transform: translateX(-50%);
     width: 65%;
     max-width: 260px;
     z-index: 2;
+    animation: textIn 2s ease forwards;
 }
 
 /* 👉 botón */
@@ -109,17 +110,45 @@ body {
     transform: translateX(-50%);
     width: 130px;
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .next:hover {
     transform: translateX(-50%) scale(1.1);
 }
 
-/* animación */
+/* animaciones */
 @keyframes swing {
     0% { transform: rotate(5deg); }
     50% { transform: rotate(-5deg); }
     100% { transform: rotate(5deg); }
+}
+
+@keyframes float {
+    0%,100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -8px); }
+}
+
+@keyframes moonIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes textIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
 }
 </style>
 </head>
@@ -136,7 +165,6 @@ body {
     <img src="../assets/img/lamp.png" class="lamp l2">
     <img src="../assets/img/lamp.png" class="lamp l3">
     <img src="../assets/img/lamp.png" class="lamp l4">
-    <img src="../assets/img/lamp.png" class="lamp l5">
 
     <!-- ☁️ -->
     <img src="../assets/img/banner.png" class="banner">
