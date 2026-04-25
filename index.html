@@ -4,11 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Surprise</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: #043562;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+/* ✨ estrellas */
+body::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: starsMove 40s linear infinite;
+    opacity: 0.4;
+}
+
+@keyframes starsMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(200px); }
+}
+
+/* contenedor */
+.container {
+    text-align: center;
+    z-index: 1;
+}
+
+/* título */
+.title {
+    width: 260px;
+    margin-bottom: 20px;
+    animation: fadeDown 1.5s ease;
+}
+
+/* ratón */
+.mouse {
+    width: 220px;
+    margin-bottom: 20px;
+    animation: bounce 2s infinite;
+}
+
+/* botones */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* botones imagen */
+.btn {
+    width: 90px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.1);
+}
+
+/* animaciones */
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+</style>
 </head>
 
 <body>
 
-<h1>Hola 👀</h1>
+<div class="container">
+
+    <!-- 📝 titulo -->
+    <img src="assets/img/titulo.png" class="title">
+
+    <!-- 🐭 ratón -->
+    <img src="assets/img/raton.png" class="mouse">
+
+    <!-- botones -->
+    <div class="buttons">
+        <img src="assets/img/yes.png" class="btn" onclick="goNext()">
+        <img src="assets/img/no.png" class="btn" id="noBtn">
+    </div>
+
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function moveButton() {
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+function goNext() {
+    window.location.href = "eid/";
+}
+</script>
 
 </body>
 </html>
