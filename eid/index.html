@@ -55,41 +55,19 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 🏮 FAROLES GRANDES Y JUNTOS */
+/* 🏮 FAROLES naturales */
 .lamp {
     position: absolute;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 90px;
     animation: swing 3s ease-in-out infinite;
 }
 
-/* cadena larga */
-.lamp::before {
-    content: "";
-    width: 2px;
-    height: 180px;
-    background: #d4af37;
-}
-
-/* imagen */
-.lamp img {
-    width: 100%;
-}
-
-/* MÁS JUNTOS + MÁS GRANDES */
-.l1 { left: 25%; width: 80px; }
-.l1::before { height: 150px; }
-
-.l2 { left: 40%; width: 110px; }
-.l2::before { height: 210px; }
-
-.l3 { left: 55%; width: 80px; }
-.l3::before { height: 150px; }
-
-.l4 { left: 70%; width: 110px; }
-.l4::before { height: 210px; }
+/* posiciones desordenadas (clave) */
+.l1 { top: -10px; left: 10%; animation-duration: 3s; }
+.l2 { top: 10px; left: 30%; animation-duration: 2.5s; }
+.l3 { top: -5px; left: 50%; animation-duration: 3.5s; }
+.l4 { top: 15px; left: 70%; animation-duration: 2.8s; }
+.l5 { top: 0px; left: 85%; animation-duration: 3.2s; }
 
 /* ☁️ banner */
 .banner {
@@ -102,20 +80,20 @@ body {
     z-index: 1;
 }
 
-/* 🌙 luna (ARRIBA dentro del banner, con espacio) */
+/* 🌙 luna (ajustada) */
 .moon {
     position: absolute;
-    top: 380px;
+    top: 400px; /* más abajo */
     left: 50%;
     transform: translateX(-50%);
-    width: 75px;
+    width: 90px; /* más grande */
     z-index: 2;
 }
 
-/* ✨ TEXTO (ABAJO dentro del banner, NO centrado vertical) */
+/* ✨ texto (se mantiene abajo dentro del banner) */
 .text {
     position: absolute;
-    top: 520px; /* 👈 esto es lo clave */
+    top: 520px;
     left: 50%;
     transform: translateX(-50%);
     width: 65%;
@@ -139,9 +117,9 @@ body {
 
 /* animación */
 @keyframes swing {
-    0% { transform: rotate(4deg); }
-    50% { transform: rotate(-4deg); }
-    100% { transform: rotate(4deg); }
+    0% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
 }
 </style>
 </head>
@@ -154,10 +132,11 @@ body {
     <div class="stars2"></div>
 
     <!-- 🏮 -->
-    <div class="lamp l1"><img src="../assets/img/lamp.png"></div>
-    <div class="lamp l2"><img src="../assets/img/lamp.png"></div>
-    <div class="lamp l3"><img src="../assets/img/lamp.png"></div>
-    <div class="lamp l4"><img src="../assets/img/lamp.png"></div>
+    <img src="../assets/img/lamp.png" class="lamp l1">
+    <img src="../assets/img/lamp.png" class="lamp l2">
+    <img src="../assets/img/lamp.png" class="lamp l3">
+    <img src="../assets/img/lamp.png" class="lamp l4">
+    <img src="../assets/img/lamp.png" class="lamp l5">
 
     <!-- ☁️ -->
     <img src="../assets/img/banner.png" class="banner">
