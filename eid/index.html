@@ -55,7 +55,7 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 🏮 FAROLES REALES (con cadena) */
+/* 🏮 FAROLES GRANDES Y JUNTOS */
 .lamp {
     position: absolute;
     top: 0;
@@ -65,11 +65,11 @@ body {
     animation: swing 3s ease-in-out infinite;
 }
 
-/* cadena */
+/* cadena larga */
 .lamp::before {
     content: "";
     width: 2px;
-    height: 140px; /* largo base */
+    height: 180px;
     background: #d4af37;
 }
 
@@ -78,23 +78,23 @@ body {
     width: 100%;
 }
 
-/* alternancia real */
-.l1 { left: 20%; width: 55px; }
-.l1::before { height: 120px; }
+/* MÁS JUNTOS + MÁS GRANDES */
+.l1 { left: 25%; width: 80px; }
+.l1::before { height: 150px; }
 
-.l2 { left: 38%; width: 80px; }
-.l2::before { height: 180px; }
+.l2 { left: 40%; width: 110px; }
+.l2::before { height: 210px; }
 
-.l3 { left: 56%; width: 55px; }
-.l3::before { height: 120px; }
+.l3 { left: 55%; width: 80px; }
+.l3::before { height: 150px; }
 
-.l4 { left: 74%; width: 80px; }
-.l4::before { height: 180px; }
+.l4 { left: 70%; width: 110px; }
+.l4::before { height: 210px; }
 
-/* ☁️ banner (protagonista) */
+/* ☁️ banner */
 .banner {
     position: absolute;
-    top: 340px;
+    top: 360px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -102,24 +102,24 @@ body {
     z-index: 1;
 }
 
-/* 🌙 luna DENTRO arriba */
+/* 🌙 luna (ARRIBA dentro del banner, con espacio) */
 .moon {
     position: absolute;
-    top: 360px;
+    top: 380px;
     left: 50%;
     transform: translateX(-50%);
-    width: 70px;
+    width: 75px;
     z-index: 2;
 }
 
-/* ✨ texto DENTRO abajo */
+/* ✨ TEXTO (ABAJO dentro del banner, NO centrado vertical) */
 .text {
     position: absolute;
-    top: 460px;
+    top: 520px; /* 👈 esto es lo clave */
     left: 50%;
     transform: translateX(-50%);
     width: 65%;
-    max-width: 250px;
+    max-width: 260px;
     z-index: 2;
 }
 
@@ -137,7 +137,7 @@ body {
     transform: translateX(-50%) scale(1.1);
 }
 
-/* animaciones */
+/* animación */
 @keyframes swing {
     0% { transform: rotate(4deg); }
     50% { transform: rotate(-4deg); }
@@ -153,7 +153,7 @@ body {
     <div class="stars"></div>
     <div class="stars2"></div>
 
-    <!-- 🏮 FAROLES -->
+    <!-- 🏮 -->
     <div class="lamp l1"><img src="../assets/img/lamp.png"></div>
     <div class="lamp l2"><img src="../assets/img/lamp.png"></div>
     <div class="lamp l3"><img src="../assets/img/lamp.png"></div>
