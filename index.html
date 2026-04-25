@@ -15,50 +15,50 @@ body {
     height: 100vh;
 }
 
-/* contenedor principal más grande */
+/* contenedor principal */
 .wrapper {
     width: 100%;
-    max-width: 500px; /* más ancho */
+    max-width: 520px;
     height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* contenido en columna */
+/* contenido */
 .container {
     text-align: center;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px; /* 🔥 separa todo verticalmente */
+    gap: 35px;
 }
 
 /* título */
 .title {
-    width: 85%;
-    max-width: 320px;
+    width: 90%;
+    max-width: 340px;
 }
 
-/* ratón */
+/* 🐭 ratón MÁS GRANDE */
 .mouse {
-    width: 80%;
-    max-width: 260px;
+    width: 90%;
+    max-width: 320px;
 }
 
 /* botones */
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 40px; /* más separación entre botones */
+    gap: 40px;
     position: relative;
     width: 100%;
 }
 
 /* botones imagen */
 .btn {
-    width: 110px; /* 🔥 más grandes */
+    width: 110px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -67,9 +67,9 @@ body {
     transform: scale(1.1);
 }
 
-/* botón NO flotante */
+/* ⚠️ IMPORTANTE: NO ya NO es absolute al inicio */
 #noBtn {
-    position: absolute;
+    position: relative;
 }
 </style>
 </head>
@@ -107,6 +107,7 @@ function moveButton() {
     const x = Math.random() * maxX;
     const y = Math.random() * maxY;
 
+    noBtn.style.position = "absolute"; // 👈 recién aquí se vuelve flotante
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
