@@ -24,68 +24,87 @@ body {
     overflow: hidden;
 }
 
-/* ✨ estrellas */
-.wrapper::before {
-    content: "";
+/* ✨ estrellas tipo cielo (random visual) */
+.stars, .stars2 {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 25px 25px;
-    opacity: 0.4;
-    animation: blink 2s infinite alternate;
+    background-repeat: repeat;
+    animation: twinkle 3s infinite alternate;
 }
 
-/* 🌙 luna */
-.moon {
-    position: absolute;
-    top: 110px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    z-index: 2;
-    animation: float 4s ease-in-out infinite;
+.stars {
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 1.5px, transparent 1.5px),
+        radial-gradient(white 2px, transparent 2px);
+    background-size: 80px 80px, 120px 120px, 160px 160px;
+    background-position: 0 0, 40px 60px, 20px 100px;
+    opacity: 0.5;
 }
 
-/* 🏮 faroles (intercalados) */
+.stars2 {
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 2px, transparent 2px);
+    background-size: 100px 100px, 140px 140px;
+    background-position: 30px 20px, 70px 90px;
+    opacity: 0.3;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.2; }
+    to { opacity: 0.6; }
+}
+
+/* 🏮 faroles (más largos y juntos) */
 .lamp {
     position: absolute;
-    top: 0;
+    top: -20px;
     animation: swing 3s ease-in-out infinite;
 }
 
-/* tamaños alternados */
-.l1 { left: 5%; width: 40px; }
-.l2 { left: 25%; width: 70px; }
-.l3 { left: 45%; width: 40px; }
-.l4 { right: 25%; width: 70px; }
-.l5 { right: 5%; width: 40px; }
+/* alternados pero más compactos */
+.l1 { left: 12%; width: 55px; }
+.l2 { left: 30%; width: 85px; }
+.l3 { left: 48%; width: 55px; }
+.l4 { left: 66%; width: 85px; }
+.l5 { left: 82%; width: 55px; }
 
-/* ☁️ banner GRANDE centrado */
+/* ☁️ banner más abajo */
 .banner {
     position: absolute;
-    top: 180px;
+    top: 260px;
     left: 50%;
     transform: translateX(-50%);
     width: 95%;
     max-width: 420px;
     z-index: 1;
-    animation: fadeIn 2s ease;
 }
 
-/* ✨ texto sobre banner */
-.text {
+/* 🌙 luna DENTRO del banner */
+.moon {
     position: absolute;
-    top: 240px;
+    top: 280px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    max-width: 300px;
+    width: 65px;
     z-index: 2;
-    animation: fadeIn 3s ease;
+    animation: float 4s ease-in-out infinite;
 }
 
-/* 👉 botón NEXT */
+/* ✨ texto dentro del banner */
+.text {
+    position: absolute;
+    top: 340px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    max-width: 260px;
+    z-index: 2;
+}
+
+/* 👉 botón NEXT abajo */
 .next {
     position: absolute;
     bottom: 40px;
@@ -102,25 +121,14 @@ body {
 
 /* animaciones */
 @keyframes swing {
-    0% { transform: rotate(6deg); }
-    50% { transform: rotate(-6deg); }
-    100% { transform: rotate(6deg); }
+    0% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    100% { transform: rotate(5deg); }
 }
 
 @keyframes float {
     0%,100% { transform: translate(-50%, 0); }
-    50% { transform: translate(-50%, -10px); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* ✨ parpadeo estrellas */
-@keyframes blink {
-    from { opacity: 0.2; }
-    to { opacity: 0.5; }
+    50% { transform: translate(-50%, -8px); }
 }
 </style>
 </head>
@@ -128,6 +136,10 @@ body {
 <body>
 
 <div class="wrapper">
+
+    <!-- ✨ estrellas -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
 
     <!-- 🏮 faroles -->
     <img src="../assets/img/lamp.png" class="lamp l1">
