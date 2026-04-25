@@ -11,40 +11,26 @@ body {
     background: #043562;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* contenedor principal */
+/* contenedor centrado */
 .wrapper {
     width: 100%;
-    max-width: 420px; /* controla el ancho en PC */
-    min-height: 100vh;
+    max-width: 420px;
+    height: 90vh;
     position: relative;
-    overflow: hidden;
-}
-
-/* ✨ estrellas */
-.wrapper::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background-image: radial-gradient(white 1px, transparent 1px);
-    background-size: 30px 30px;
-    animation: starsMove 40s linear infinite;
-    opacity: 0.4;
-}
-
-@keyframes starsMove {
-    from { transform: translateY(0); }
-    to { transform: translateY(200px); }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* contenido */
 .container {
     text-align: center;
+    width: 100%;
     position: relative;
-    z-index: 1;
-    padding-top: 60px;
 }
 
 /* título */
@@ -58,7 +44,6 @@ body {
     width: 75%;
     max-width: 220px;
     margin: 20px 0;
-    animation: bounce 2s infinite;
 }
 
 /* botones */
@@ -66,8 +51,10 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
+    position: relative;
 }
 
+/* botones imagen */
 .btn {
     width: 90px;
     cursor: pointer;
@@ -78,10 +65,9 @@ body {
     transform: scale(1.1);
 }
 
-/* animación ratón */
-@keyframes bounce {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+/* botón NO flotante dentro del área */
+#noBtn {
+    position: absolute;
 }
 </style>
 </head>
@@ -96,7 +82,7 @@ body {
 
         <img src="assets/img/raton.png" class="mouse">
 
-        <div class="buttons">
+        <div class="buttons" id="btnArea">
             <img src="assets/img/yes.png" class="btn" onclick="goNext()">
             <img src="assets/img/no.png" class="btn" id="noBtn">
         </div>
@@ -107,15 +93,20 @@ body {
 
 <script>
 const noBtn = document.getElementById("noBtn");
+const area = document.getElementById("btnArea");
 
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("click", moveButton);
 
 function moveButton() {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
+    const areaRect = area.getBoundingClientRect();
 
-    noBtn.style.position = "absolute";
+    const maxX = area.offsetWidth - 80;
+    const maxY = area.offsetHeight + 100;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
 }
