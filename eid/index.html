@@ -55,24 +55,46 @@ body {
     to { opacity: 0.6; }
 }
 
-/* 🏮 faroles MEJORADOS */
+/* 🏮 FAROLES REALES (con cadena) */
 .lamp {
     position: absolute;
-    top: -60px; /* más colgados */
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     animation: swing 3s ease-in-out infinite;
 }
 
-/* más juntos + alternados */
-.l1 { left: 18%; width: 70px; }
-.l2 { left: 34%; width: 105px; }
-.l3 { left: 50%; width: 70px; }
-.l4 { left: 66%; width: 105px; }
-.l5 { left: 82%; width: 70px; }
+/* cadena */
+.lamp::before {
+    content: "";
+    width: 2px;
+    height: 140px; /* largo base */
+    background: #d4af37;
+}
 
-/* ☁️ banner MÁS ABAJO y MÁS GRANDE */
+/* imagen */
+.lamp img {
+    width: 100%;
+}
+
+/* alternancia real */
+.l1 { left: 20%; width: 55px; }
+.l1::before { height: 120px; }
+
+.l2 { left: 38%; width: 80px; }
+.l2::before { height: 180px; }
+
+.l3 { left: 56%; width: 55px; }
+.l3::before { height: 120px; }
+
+.l4 { left: 74%; width: 80px; }
+.l4::before { height: 180px; }
+
+/* ☁️ banner (protagonista) */
 .banner {
     position: absolute;
-    top: 310px;
+    top: 340px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -80,21 +102,20 @@ body {
     z-index: 1;
 }
 
-/* 🌙 luna mejor posicionada */
+/* 🌙 luna DENTRO arriba */
 .moon {
     position: absolute;
-    top: 330px;
+    top: 360px;
     left: 50%;
     transform: translateX(-50%);
-    width: 75px;
+    width: 70px;
     z-index: 2;
-    animation: float 4s ease-in-out infinite;
 }
 
-/* ✨ texto más abajo */
+/* ✨ texto DENTRO abajo */
 .text {
     position: absolute;
-    top: 410px;
+    top: 460px;
     left: 50%;
     transform: translateX(-50%);
     width: 65%;
@@ -110,7 +131,6 @@ body {
     transform: translateX(-50%);
     width: 130px;
     cursor: pointer;
-    transition: 0.2s;
 }
 
 .next:hover {
@@ -119,14 +139,9 @@ body {
 
 /* animaciones */
 @keyframes swing {
-    0% { transform: rotate(6deg); }
-    50% { transform: rotate(-6deg); }
-    100% { transform: rotate(6deg); }
-}
-
-@keyframes float {
-    0%,100% { transform: translate(-50%, 0); }
-    50% { transform: translate(-50%, -10px); }
+    0% { transform: rotate(4deg); }
+    50% { transform: rotate(-4deg); }
+    100% { transform: rotate(4deg); }
 }
 </style>
 </head>
@@ -138,12 +153,11 @@ body {
     <div class="stars"></div>
     <div class="stars2"></div>
 
-    <!-- 🏮 -->
-    <img src="../assets/img/lamp.png" class="lamp l1">
-    <img src="../assets/img/lamp.png" class="lamp l2">
-    <img src="../assets/img/lamp.png" class="lamp l3">
-    <img src="../assets/img/lamp.png" class="lamp l4">
-    <img src="../assets/img/lamp.png" class="lamp l5">
+    <!-- 🏮 FAROLES -->
+    <div class="lamp l1"><img src="../assets/img/lamp.png"></div>
+    <div class="lamp l2"><img src="../assets/img/lamp.png"></div>
+    <div class="lamp l3"><img src="../assets/img/lamp.png"></div>
+    <div class="lamp l4"><img src="../assets/img/lamp.png"></div>
 
     <!-- ☁️ -->
     <img src="../assets/img/banner.png" class="banner">
