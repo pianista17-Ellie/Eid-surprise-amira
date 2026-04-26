@@ -8,7 +8,7 @@
 <style>
 body {
     margin: 0;
-    background: #043562;
+    background: #ffedf4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,43 +20,58 @@ body {
     width: 100%;
     max-width: 520px;
     height: 95vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     padding: 20px;
     box-sizing: border-box;
 }
 
 /* título */
 .title {
-    text-align: center;
-    color: white;
-    font-size: 28px;
-    margin-bottom: 20px;
+    width: 80%;
+    max-width: 300px;
+    margin-top: 10px;
 }
 
 /* grid */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
 }
 
-/* cuadros */
-.card {
-    background: rgba(255,255,255,0.1);
+/* cuadros PNG */
+.card img {
+    width: 100%;
     border-radius: 15px;
-    height: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
-    text-align: center;
 }
 
-.card:hover {
+.card img:hover {
     transform: scale(1.05);
-    background: rgba(255,255,255,0.2);
+}
+
+/* botones */
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.buttons img {
+    width: 120px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.buttons img:hover {
+    transform: scale(1.1);
 }
 </style>
 </head>
@@ -65,17 +80,42 @@ body {
 
 <div class="wrapper">
 
-    <div class="title">For You 🤍</div>
+    <!-- 🟥 TÍTULO PNG -->
+    <img src="../assets/img/title.png" class="title">
 
+    <!-- 🟦 GRID -->
     <div class="grid">
 
-        <div class="card" onclick="go('letter')">💌 Carta</div>
-        <div class="card" onclick="go('flowers')">🌸 Flores</div>
-        <div class="card" onclick="go('video')">🎥 Video</div>
-        <div class="card" onclick="go('photos')">📸 Fotos</div>
-        <div class="card" onclick="go('music')">🎧 Playlist</div>
-        <div class="card" onclick="go('time')">⏳ Tiempo</div>
+        <div class="card" onclick="go('letter')">
+            <img src="../assets/img/card1.png">
+        </div>
 
+        <div class="card" onclick="go('flowers')">
+            <img src="../assets/img/card2.png">
+        </div>
+
+        <div class="card" onclick="go('video')">
+            <img src="../assets/img/card3.png">
+        </div>
+
+        <div class="card" onclick="go('photos')">
+            <img src="../assets/img/card4.png">
+        </div>
+
+        <div class="card" onclick="go('music')">
+            <img src="../assets/img/card5.png">
+        </div>
+
+        <div class="card" onclick="go('time')">
+            <img src="../assets/img/card6.png">
+        </div>
+
+    </div>
+
+    <!-- 🔘 BOTONES -->
+    <div class="buttons">
+        <img src="../assets/img/return.png" onclick="goBack()">
+        <img src="../assets/img/next.png" onclick="goNext()">
     </div>
 
 </div>
@@ -83,6 +123,14 @@ body {
 <script>
 function go(section) {
     window.location.href = "../sections/" + section + "/index.html";
+}
+
+function goBack() {
+    window.location.href = "../eid/";
+}
+
+function goNext() {
+    alert("Siguiente sección próximamente 😏");
 }
 </script>
 
