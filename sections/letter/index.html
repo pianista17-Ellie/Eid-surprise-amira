@@ -1,1 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lettre</title>
 
+<style>
+body {
+    margin: 0;
+    background: #043562;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* contenedor */
+.wrapper {
+    width: 100%;
+    max-width: 520px;
+    height: 95vh;
+    padding: 25px;
+    box-sizing: border-box;
+    color: #f5f5f5;
+    font-family: "Georgia", serif;
+    line-height: 1.6;
+    overflow-y: auto;
+}
+
+/* estrellas */
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(white 1px, transparent 1px),
+        radial-gradient(white 2px, transparent 2px);
+    background-size: 100px 100px, 140px 140px;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+/* texto */
+.text {
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+/* animación */
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* título */
+.title {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* botón volver */
+.back {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.2);
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="wrapper">
+
+    <div class="title">Pour toi 🤍</div>
+
+    <div class="text">
+D’abord, pardonne-moi pour le retard :c …<br><br>
+
+Je veux t’avouer que je t’admire…<br>
+ta foi, ta gentillesse,<br>
+et ces grands gestes — comme te souvenir de moi dans tes prières —<br>
+ne sont pas passés inaperçus.<br><br>
+
+Je ne savais rien du Ramadan…<br>
+jusqu’à ce que je commence à le voir à travers toi.<br>
+Dans les détails que tu partageais —<br>
+tes iftars, ce que tu préparais,<br>
+ta manière de vivre ta foi—<br>
+j’ai découvert quelque chose de nouveau…<br>
+et, sans m’en rendre compte, j’ai commencé à l’admirer :)<br><br>
+
+Je pense qu’on a rarement l’occasion<br>
+de connaître quelque chose d’aussi différent…<br>
+et en même temps, si sincère.<br><br>
+
+Merci de m’avoir laissé voir un petit bout de ton monde.<br>
+Et, avec beaucoup de respect,<br>
+merci aussi à ta maman…<br>
+pour m’avoir permis de rester dans ta vie,<br>
+même de loin :b<br><br>
+
+Inshallah, un jour je pourrai vivre un Ramadan là-bas…<br>
+et comprendre plus profondément<br>
+ce que je commence à peine à apprécier.<br><br>
+
+Eid Mubarak, Amira ✨
+    </div>
+
+</div>
+
+<div class="back" onclick="goBack()">← Volver</div>
+
+<script>
+function goBack() {
+    window.location.href = "../../foryou/";
+}
+</script>
+
+</body>
+</html>
