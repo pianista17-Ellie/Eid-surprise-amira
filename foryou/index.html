@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+
+<style>
+body {
+    margin: 0;
+    background: #043562;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* contenedor */
+.wrapper {
+    width: 100%;
+    max-width: 520px;
+    height: 95vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* título */
+.title {
+    text-align: center;
+    color: white;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* grid */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* cuadros */
+.card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.2);
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="title">For You 🤍</div>
+
+    <div class="grid">
+
+        <div class="card" onclick="go('letter')">💌 Carta</div>
+        <div class="card" onclick="go('flowers')">🌸 Flores</div>
+        <div class="card" onclick="go('video')">🎥 Video</div>
+        <div class="card" onclick="go('photos')">📸 Fotos</div>
+        <div class="card" onclick="go('music')">🎧 Playlist</div>
+        <div class="card" onclick="go('time')">⏳ Tiempo</div>
+
+    </div>
+
+</div>
+
+<script>
+function go(section) {
+    window.location.href = "../sections/" + section + "/index.html";
+}
+</script>
+
+</body>
+</html>
