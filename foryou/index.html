@@ -26,13 +26,15 @@ body {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    animation: fadeIn 1.2s ease;
 }
 
-/* título */
+/* ✨ título grande */
 .title {
-    width: 80%;
-    max-width: 300px;
+    width: 95%;
+    max-width: 420px;
     margin-top: 10px;
+    animation: slideDown 1s ease;
 }
 
 /* grid */
@@ -41,10 +43,13 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     width: 100%;
-    margin-top: 10px;
 }
 
-/* cuadros PNG */
+/* tarjetas */
+.card {
+    position: relative;
+}
+
 .card img {
     width: 100%;
     border-radius: 15px;
@@ -52,7 +57,22 @@ body {
     transition: 0.3s;
 }
 
-.card img:hover {
+/* 💖 brillo rosado */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    background: radial-gradient(circle, rgba(255,150,200,0.4), transparent 70%);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+.card:hover img {
     transform: scale(1.05);
 }
 
@@ -60,18 +80,34 @@ body {
 .buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
     margin-bottom: 10px;
 }
 
 .buttons img {
-    width: 120px;
+    width: 130px;
     cursor: pointer;
     transition: 0.2s;
 }
 
 .buttons img:hover {
     transform: scale(1.1);
+}
+
+/* animaciones */
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 </style>
 </head>
@@ -80,10 +116,10 @@ body {
 
 <div class="wrapper">
 
-    <!-- 🟥 TÍTULO PNG -->
+    <!-- 🟥 título -->
     <img src="../assets/img/title.png" class="title">
 
-    <!-- 🟦 GRID -->
+    <!-- 🟦 grid -->
     <div class="grid">
 
         <div class="card" onclick="go('letter')">
@@ -112,25 +148,35 @@ body {
 
     </div>
 
-    <!-- 🔘 BOTONES -->
+    <!-- 🔘 botón return -->
     <div class="buttons">
         <img src="../assets/img/return.png" onclick="goBack()">
-        <img src="../assets/img/next.png" onclick="goNext()">
     </div>
 
 </div>
 
+<!-- 🔊 sonido -->
+<audio id="clickSound" src="../assets/audio/click.mp3"></audio>
+
 <script>
+function playSound() {
+    const sound = document.getElementById("clickSound");
+    sound.currentTime = 0;
+    sound.play();
+}
+
 function go(section) {
-    window.location.href = "../sections/" + section + "/index.html";
+    playSound();
+    setTimeout(() => {
+        window.location.href = "../sections/" + section + "/index.html";
+    }, 200);
 }
 
 function goBack() {
-    window.location.href = "../eid/";
-}
-
-function goNext() {
-    alert("Siguiente sección próximamente 😏");
+    playSound();
+    setTimeout(() => {
+        window.location.href = "../eid/";
+    }, 200);
 }
 </script>
 
