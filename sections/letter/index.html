@@ -23,35 +23,37 @@ body {
     text-align: center;
 }
 
-/* título */
+/* título (más lento) */
 .title {
     font-family: 'Great Vibes', cursive;
     font-size: 48px;
     color: #a00000;
     opacity: 0;
-    animation: showTitle 1.5s ease forwards;
+    animation: showTitle 2.5s ease forwards;
 }
 
-/* ratón */
+/* ratón grande inicial */
 .mouse {
-    width: 180px;
-    margin: 15px auto;
+    width: 240px;
+    margin: 20px auto;
     display: block;
     cursor: pointer;
     opacity: 0;
-    animation: showMouse 1.5s ease forwards, heartbeat 1.5s infinite;
-    animation-delay: 1.5s, 3s;
+    animation: showMouse 2s ease forwards, heartbeat 1.8s infinite;
+    animation-delay: 2.5s, 4.5s;
+    transition: transform 0.5s ease, width 0.5s ease;
 }
 
-/* cuando se activa */
+/* cuando se activa (se hace normal) */
 .mouse.active {
-    animation: showMouse 1.5s ease forwards;
+    width: 180px;
+    animation: none;
 }
 
 /* latido */
 @keyframes heartbeat {
     0% {transform: scale(1);}
-    50% {transform: scale(1.08);}
+    50% {transform: scale(1.1);}
     100% {transform: scale(1);}
 }
 
@@ -77,12 +79,12 @@ body {
 
 /* animaciones */
 @keyframes showTitle {
-    from {opacity: 0; transform: translateY(-20px);}
+    from {opacity: 0; transform: translateY(-25px);}
     to {opacity: 1; transform: translateY(0);}
 }
 
 @keyframes showMouse {
-    from {opacity: 0; transform: translateY(20px);}
+    from {opacity: 0; transform: translateY(25px);}
     to {opacity: 1; transform: translateY(0);}
 }
 </style>
@@ -95,7 +97,7 @@ body {
     <!-- título -->
     <div class="title">Salam Aleikum Habibi...</div>
 
-    <!-- ratón (botón play) -->
+    <!-- ratón -->
     <img src="../../assets/img/ratoncito.gif" class="mouse" id="mouse">
 
     <!-- texto -->
@@ -147,7 +149,7 @@ ce que je commence à peine à apprécier.
 Eid Mubarak…!`;
 
 let i = 0;
-const speed = 25;
+const speed = 45; // ✨ más lento
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
 const clickSound = document.getElementById("click");
@@ -162,20 +164,21 @@ function typeWriter() {
     }
 }
 
-/* click en ratón = iniciar todo */
+/* interacción */
 mouse.addEventListener("click", () => {
 
     clickSound.play();
 
-    // iniciar música
+    // música
     music.volume = 0.8;
     music.play().catch(()=>{});
 
-    // quitar latido
+    // quitar latido y reducir tamaño
     mouse.classList.add("active");
 
-    // iniciar texto
-    setTimeout(typeWriter, 300);
+    // iniciar texto (más suave)
+    setTimeout(typeWriter, 600);
+
 }, { once: true });
 
 /* volver */
