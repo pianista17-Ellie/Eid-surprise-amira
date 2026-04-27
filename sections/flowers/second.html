@@ -11,25 +11,58 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* contenedor tipo vertical */
 .container {
     width: 100%;
-    max-width: 520px;
-    text-align: center;
-    padding: 30px;
+    max-width: 420px; /* formato tipo celular */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10px;
 }
 
 /* imagen cartel */
 .cartel {
-    width: 260px;
-    margin: 20px auto;
-    animation: fadeIn 1s ease;
+    width: 85%;
+    max-width: 320px;
+    margin-top: 40px;
+    animation: float 3s ease-in-out infinite;
+    position: relative;
 }
+
+/* DESTELLOS ✨ */
+.sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sparkles span {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle 2s infinite;
+}
+
+/* posiciones random */
+.sparkles span:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.sparkles span:nth-child(2) { top: 30%; left: 80%; animation-delay: 0.5s; }
+.sparkles span:nth-child(3) { top: 70%; left: 40%; animation-delay: 1s; }
+.sparkles span:nth-child(4) { top: 50%; left: 10%; animation-delay: 1.5s; }
 
 /* botones */
 .buttons {
-    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .buttons img {
@@ -38,21 +71,28 @@ body {
     cursor: pointer;
 }
 
-/* latido SOLO para "come" */
+/* latido botón */
 .come {
-    animation: heartbeat 1.5s infinite;
+    animation: heartbeat 1.4s infinite;
 }
 
 /* animaciones */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
 @keyframes heartbeat {
     0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    50% { transform: scale(1.12); }
     100% { transform: scale(1); }
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+@keyframes sparkle {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(0.5); }
 }
 </style>
 </head>
@@ -61,8 +101,17 @@ body {
 
 <div class="container">
 
-    <!-- imagen -->
-    <img src="../../assets/img/cartel.png" class="cartel">
+    <!-- cartel + destellos -->
+    <div style="position: relative;">
+        <img src="../../assets/img/cartel.png" class="cartel">
+
+        <div class="sparkles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
 
     <!-- botones -->
     <div class="buttons">
