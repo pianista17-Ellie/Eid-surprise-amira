@@ -15,7 +15,6 @@ body {
     justify-content: center;
 }
 
-/* contenedor */
 .wrapper {
     width: 100%;
     max-width: 520px;
@@ -39,15 +38,14 @@ body {
     display: block;
     cursor: pointer;
     opacity: 0;
-    animation: showMouse 2s ease forwards, heartbeat 1.8s infinite;
-    animation-delay: 2.5s, 4.5s;
-    transition: width 0.5s ease, transform 0.5s ease;
+    animation: showMouse 2s ease forwards;
+    animation-delay: 2.5s;
 }
 
-/* estado activo (ya sin latido, más pequeño) */
-.mouse.active {
-    width: 180px;
-    animation: none;
+/* latido separado */
+.heartbeat {
+    animation: heartbeat 1.8s infinite;
+    animation-delay: 4.5s;
 }
 
 /* texto guía */
@@ -58,6 +56,12 @@ body {
     opacity: 0;
     animation: fadeHint 2s ease forwards;
     animation-delay: 4.5s;
+    transition: opacity 0.4s ease;
+}
+
+/* ocultar hint */
+.hint.hide {
+    opacity: 0;
 }
 
 /* texto carta */
@@ -108,26 +112,21 @@ body {
 
 <div class="wrapper">
 
-    <!-- título -->
     <div class="title">Salam Aleikum Habibi...</div>
 
-    <!-- ratón -->
-    <img src="../../assets/img/ratoncito.gif" class="mouse" id="mouse">
+    <!-- 👇 IMPORTANTE: clase heartbeat separada -->
+    <img src="../../assets/img/ratoncito.gif" class="mouse heartbeat" id="mouse">
 
-    <!-- hint -->
-    <div class="hint">[click the mouse]</div>
+    <div class="hint" id="hint">[click the mouse]</div>
 
-    <!-- texto -->
     <div id="text" class="text"></div>
 
-    <!-- volver -->
     <div class="back" onclick="goBack()">
         <img src="../../assets/img/return.png">
     </div>
 
 </div>
 
-<!-- sonidos -->
 <audio id="music" src="../../assets/audio/music1.mp3" loop></audio>
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
 
@@ -166,11 +165,12 @@ ce que je commence à peine à apprécier.
 Eid Mubarak…!`;
 
 let i = 0;
-const speed = 65; // ✨ más lento y suave
+const speed = 65;
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
 const clickSound = document.getElementById("click");
 const mouse = document.getElementById("mouse");
+const hint = document.getElementById("hint");
 
 /* escribir texto */
 function typeWriter() {
@@ -181,24 +181,26 @@ function typeWriter() {
     }
 }
 
-/* click ratón */
+/* click */
 mouse.addEventListener("click", () => {
 
     clickSound.play();
 
-    // música
+    // iniciar música
     music.volume = 0.8;
     music.play().catch(()=>{});
 
-    // quitar solo el latido (NO desaparece)
-    mouse.classList.add("active");
+    // 🔥 quitar SOLO el latido
+    mouse.classList.remove("heartbeat");
 
-    // iniciar texto más suave
+    // 🔥 ocultar texto guía
+    hint.classList.add("hide");
+
+    // iniciar escritura
     setTimeout(typeWriter, 800);
 
 }, { once: true });
 
-/* volver */
 function goBack() {
     clickSound.play();
     music.pause();
