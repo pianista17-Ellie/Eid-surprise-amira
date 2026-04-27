@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lettre</title>
 
-<!-- ✨ fuente elegante -->
+<!-- ✨ fuentes -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap" rel="stylesheet">
 
 <style>
@@ -49,7 +49,7 @@ body {
     font-family: 'Libre Baskerville', serif;
     color: #7a0000;
     font-size: 15px;
-    line-height: 1.7;
+    line-height: 1.45;
     white-space: pre-wrap;
     margin-top: 10px;
 }
@@ -97,8 +97,9 @@ body {
 
 </div>
 
-<!-- 🎵 música -->
-<audio id="music" src="../../assets/audio/music1.mp3" loop></audio>
+<!-- 🔊 sonidos -->
+<audio id="music" src="../../assets/audio/music1.mp3" autoplay loop></audio>
+<audio id="click" src="../../assets/audio/click.mp3"></audio>
 
 <script>
 const content = `D’abord, pardonne-moi pour le retard :c …
@@ -138,6 +139,7 @@ let i = 0;
 const speed = 25;
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
+const clickSound = document.getElementById("click");
 
 /* escribir texto */
 function typeWriter() {
@@ -151,20 +153,23 @@ function typeWriter() {
 /* secuencia */
 window.onload = () => {
 
-    // activar música al primer click
-    document.body.addEventListener("click", () => {
-        music.play();
-    }, { once: true });
+    // asegurar que la música arranque
+    music.volume = 0.8;
+    music.play().catch(() => {});
 
-    // iniciar escritura después de 3s (1.5 título + 1.5 ratón)
+    // iniciar escritura después de animaciones
     setTimeout(typeWriter, 3000);
 };
 
 /* volver */
 function goBack() {
+    clickSound.play();
     music.pause();
     music.currentTime = 0;
-    window.location.href = "../../foryou/";
+
+    setTimeout(() => {
+        window.location.href = "../../foryou/";
+    }, 200);
 }
 </script>
 
