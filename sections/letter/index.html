@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lettre</title>
 
-<!-- ✨ fuentes -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap" rel="stylesheet">
 
 <style>
@@ -21,7 +20,6 @@ body {
     width: 100%;
     max-width: 520px;
     padding: 25px;
-    box-sizing: border-box;
     text-align: center;
 }
 
@@ -37,11 +35,24 @@ body {
 /* ratón */
 .mouse {
     width: 180px;
-    margin: 10px auto;
+    margin: 15px auto;
     display: block;
+    cursor: pointer;
     opacity: 0;
+    animation: showMouse 1.5s ease forwards, heartbeat 1.5s infinite;
+    animation-delay: 1.5s, 3s;
+}
+
+/* cuando se activa */
+.mouse.active {
     animation: showMouse 1.5s ease forwards;
-    animation-delay: 1.5s;
+}
+
+/* latido */
+@keyframes heartbeat {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.08);}
+    100% {transform: scale(1);}
 }
 
 /* texto */
@@ -81,24 +92,24 @@ body {
 
 <div class="wrapper">
 
-    <!-- ✨ título -->
+    <!-- título -->
     <div class="title">Salam Aleikum Habibi...</div>
 
-    <!-- 🐭 ratón -->
-    <img src="../../assets/img/ratoncito.gif" class="mouse">
+    <!-- ratón (botón play) -->
+    <img src="../../assets/img/ratoncito.gif" class="mouse" id="mouse">
 
-    <!-- 💌 texto -->
+    <!-- texto -->
     <div id="text" class="text"></div>
 
-    <!-- 🔘 volver -->
+    <!-- volver -->
     <div class="back" onclick="goBack()">
         <img src="../../assets/img/return.png">
     </div>
 
 </div>
 
-<!-- 🔊 sonidos -->
-<audio id="music" src="../../assets/audio/music1.mp3" autoplay loop></audio>
+<!-- sonidos -->
+<audio id="music" src="../../assets/audio/music1.mp3" loop></audio>
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
 
 <script>
@@ -140,6 +151,7 @@ const speed = 25;
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
 const clickSound = document.getElementById("click");
+const mouse = document.getElementById("mouse");
 
 /* escribir texto */
 function typeWriter() {
@@ -150,16 +162,21 @@ function typeWriter() {
     }
 }
 
-/* secuencia */
-window.onload = () => {
+/* click en ratón = iniciar todo */
+mouse.addEventListener("click", () => {
 
-    // asegurar que la música arranque
+    clickSound.play();
+
+    // iniciar música
     music.volume = 0.8;
-    music.play().catch(() => {});
+    music.play().catch(()=>{});
 
-    // iniciar escritura después de animaciones
-    setTimeout(typeWriter, 3000);
-};
+    // quitar latido
+    mouse.classList.add("active");
+
+    // iniciar texto
+    setTimeout(typeWriter, 300);
+}, { once: true });
 
 /* volver */
 function goBack() {
