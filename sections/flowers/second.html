@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Gift</title>
+
+<style>
+body {
+    margin: 0;
+    background: #ffedf4;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 520px;
+    text-align: center;
+    padding: 30px;
+}
+
+/* imagen cartel */
+.cartel {
+    width: 260px;
+    margin: 20px auto;
+    animation: fadeIn 1s ease;
+}
+
+/* botones */
+.buttons {
+    margin-top: 30px;
+}
+
+.buttons img {
+    width: 130px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+/* latido SOLO para "come" */
+.come {
+    animation: heartbeat 1.5s infinite;
+}
+
+/* animaciones */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- imagen -->
+    <img src="../../assets/img/cartel.png" class="cartel">
+
+    <!-- botones -->
+    <div class="buttons">
+        <img src="../../assets/img/return.png" onclick="goBack()">
+        <img src="../../assets/img/come.png" class="come" onclick="goRoblox()">
+    </div>
+
+</div>
+
+<audio id="click" src="../../assets/audio/click.mp3"></audio>
+
+<script>
+const clickSound = document.getElementById("click");
+
+function goBack(){
+    clickSound.play();
+    setTimeout(()=>{
+        window.location.href = "index.html";
+    },200);
+}
+
+function goRoblox(){
+    clickSound.play();
+    setTimeout(()=>{
+        window.location.href = "https://www.roblox.com/es/upgrades/robux?ctx=navpopover";
+    },300);
+}
+</script>
+
+</body>
+</html>
