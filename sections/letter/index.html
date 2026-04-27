@@ -23,7 +23,7 @@ body {
     text-align: center;
 }
 
-/* título (más lento) */
+/* título */
 .title {
     font-family: 'Great Vibes', cursive;
     font-size: 48px;
@@ -32,39 +32,42 @@ body {
     animation: showTitle 2.5s ease forwards;
 }
 
-/* ratón grande inicial */
+/* ratón */
 .mouse {
     width: 240px;
-    margin: 20px auto;
+    margin: 20px auto 5px;
     display: block;
     cursor: pointer;
     opacity: 0;
     animation: showMouse 2s ease forwards, heartbeat 1.8s infinite;
     animation-delay: 2.5s, 4.5s;
-    transition: transform 0.5s ease, width 0.5s ease;
+    transition: width 0.5s ease, transform 0.5s ease;
 }
 
-/* cuando se activa (se hace normal) */
+/* estado activo (ya sin latido, más pequeño) */
 .mouse.active {
     width: 180px;
     animation: none;
 }
 
-/* latido */
-@keyframes heartbeat {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.1);}
-    100% {transform: scale(1);}
+/* texto guía */
+.hint {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 12px;
+    color: #a00000;
+    opacity: 0;
+    animation: fadeHint 2s ease forwards;
+    animation-delay: 4.5s;
 }
 
-/* texto */
+/* texto carta */
 .text {
     font-family: 'Libre Baskerville', serif;
     color: #7a0000;
     font-size: 15px;
     line-height: 1.45;
     white-space: pre-wrap;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 /* botón */
@@ -87,6 +90,17 @@ body {
     from {opacity: 0; transform: translateY(25px);}
     to {opacity: 1; transform: translateY(0);}
 }
+
+@keyframes heartbeat {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+
+@keyframes fadeHint {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 </style>
 </head>
 
@@ -99,6 +113,9 @@ body {
 
     <!-- ratón -->
     <img src="../../assets/img/ratoncito.gif" class="mouse" id="mouse">
+
+    <!-- hint -->
+    <div class="hint">[click the mouse]</div>
 
     <!-- texto -->
     <div id="text" class="text"></div>
@@ -149,7 +166,7 @@ ce que je commence à peine à apprécier.
 Eid Mubarak…!`;
 
 let i = 0;
-const speed = 45; // ✨ más lento
+const speed = 65; // ✨ más lento y suave
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
 const clickSound = document.getElementById("click");
@@ -164,7 +181,7 @@ function typeWriter() {
     }
 }
 
-/* interacción */
+/* click ratón */
 mouse.addEventListener("click", () => {
 
     clickSound.play();
@@ -173,11 +190,11 @@ mouse.addEventListener("click", () => {
     music.volume = 0.8;
     music.play().catch(()=>{});
 
-    // quitar latido y reducir tamaño
+    // quitar solo el latido (NO desaparece)
     mouse.classList.add("active");
 
-    // iniciar texto (más suave)
-    setTimeout(typeWriter, 600);
+    // iniciar texto más suave
+    setTimeout(typeWriter, 800);
 
 }, { once: true });
 
