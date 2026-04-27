@@ -12,81 +12,65 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 /* contenedor */
 .wrapper {
     width: 100%;
     max-width: 520px;
-    height: 95vh;
-    padding: 25px;
+    padding: 20px;
     box-sizing: border-box;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    animation: fadeIn 1.2s ease;
+    position: relative;
 }
 
-/* título */
+/* título grande */
 .title {
     font-family: "Brush Script MT", cursive;
-    font-size: 32px;
+    font-size: 40px;
     color: #a00000;
-    margin-bottom: 15px;
-    text-align: center;
+    margin-bottom: 10px;
 }
 
-/* ratoncito */
+/* ratón */
 .mouse {
-    width: 120px;
-    margin-bottom: 15px;
-    animation: float 3s ease-in-out infinite;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 180px;
 }
 
 /* texto */
 .text {
     font-family: "Lucida Handwriting", "Lucida Calligraphy", cursive;
+    color: #7a0000;
     font-size: 15px;
-    color: #5a0000;
-    line-height: 1.7;
-    white-space: pre-line;
-    opacity: 0;
-    animation: typingFade 2.5s ease forwards;
+    line-height: 1.6;
+    white-space: pre-wrap;
 }
 
 /* botón */
 .back {
     margin-top: 20px;
-    cursor: pointer;
+    text-align: center;
 }
 
 .back img {
     width: 130px;
+    cursor: pointer;
 }
 
-/* animaciones */
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+/* cursor parpadeante */
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background: #7a0000;
+    margin-left: 3px;
+    animation: blink 1s infinite;
 }
 
-@keyframes typingFade {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-    0% {transform: translateY(0);}
-    50% {transform: translateY(-8px);}
-    100% {transform: translateY(0);}
+@keyframes blink {
+    0%,50%,100% {opacity:1;}
+    25%,75% {opacity:0;}
 }
 </style>
 </head>
@@ -96,53 +80,80 @@ body {
 <div class="wrapper">
 
     <!-- ✨ título -->
-    <div class="title">Salam Aleikum Habibti</div>
+    <div class="title">Salam Aleikum Habibi...</div>
 
-    <!-- 🐭 ratoncito -->
+    <!-- 🐭 ratón -->
     <img src="../../assets/img/ratoncito.gif" class="mouse">
 
-    <!-- 💌 carta -->
-    <div class="text">
-D’abord, pardonne-moi pour le retard :c …
+    <!-- 💌 texto -->
+    <div id="text" class="text"></div>
 
-Je veux t’avouer que je t’admire…
-ta foi, ta gentillesse,
-et ces grands gestes — comme te souvenir de moi dans tes prières —
-ne sont pas passés inaperçus.
-
-Je ne savais rien du Ramadan…
-jusqu’à ce que je commence à le voir à travers toi.
-Dans les détails que tu partageais —
-tes iftars, ce que tu préparais,
-ta manière de vivre ta foi—
-j’ai découvert quelque chose de nouveau…
-et, sans m’en rendre compte, j’ai commencé à l’admirer :)
-
-Je pense qu’on a rarement l’occasion
-de connaître quelque chose d’aussi différent…
-et en même temps, si sincère.
-
-Merci de m’avoir laissé voir un petit bout de ton monde.
-Et, avec beaucoup de respect,
-merci aussi à ta maman…
-pour m’avoir permis de rester dans ta vie,
-même de loin :b
-
-Inshallah, un jour je pourrai vivre un Ramadan là-bas…
-et comprendre plus profondément
-ce que je commence à peine à apprécier.
-
-Eid Mubarak, Amira ✨
-    </div>
-
-    <!-- 🔘 volver -->
+    <!-- botón -->
     <div class="back" onclick="goBack()">
         <img src="../../assets/img/return.png">
     </div>
 
 </div>
 
+<!-- 🎵 música -->
+<audio id="music" src="../../assets/audio/music1.mp3" autoplay loop></audio>
+
 <script>
+const content = `D’abord, pardonne-moi pour le retard :c …
+
+Je crois que je t’admire…
+ta foi, ta gentillesse,
+et ces gestes
+
+comme te souvenir
+de moi dans tes prières,
+ne sont pas passés inaperçus.
+
+Je ne savais rien du Ramadan…
+jusqu’à ce que je commence à le voir à travers toi.
+
+J’ai découvert quelque chose de nouveau…
+et, sans m’en rendre compte, j’ai commencé à l’admirer.
+
+Je pense qu’on a rarement l’occasion
+de connaître quelque chose d’aussi différent…
+et en même temps, si sincère.
+
+Merci de m’avoir laissé voir un petit bout de ton monde.
+
+Et, avec beaucoup de respect,
+merci aussi à ta maman…
+pour m’avoir permis de rester dans ta vie,
+même à distance.
+
+Inshallah, un jour je pourrai vivre un Ramadan là-bas…
+et comprendre plus profondément
+ce que je commence à peine à apprécier.
+
+Eid Mubarak…!`;
+
+let i = 0;
+const speed = 25;
+const textDiv = document.getElementById("text");
+
+function typeWriter() {
+    if (i < content.length) {
+        textDiv.innerHTML += content.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+    }
+}
+
+window.onload = () => {
+    typeWriter();
+
+    // activar audio (necesita interacción en algunos móviles)
+    const music = document.getElementById("music");
+    document.body.addEventListener("click", () => {
+        music.play();
+    }, { once: true });
+};
+
 function goBack() {
     window.location.href = "../../foryou/";
 }
