@@ -11,33 +11,41 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* formato vertical tipo celular */
 .container {
     width: 100%;
-    max-width: 520px;
-    text-align: center;
-    padding: 30px;
+    max-width: 420px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10px;
 }
 
-/* título */
+/* titulo */
 .title {
-    width: 220px;
-    margin: 0 auto 20px;
+    width: 70%;
+    max-width: 260px;
+    margin-top: 20px;
     animation: fadeDown 1s ease;
 }
 
-/* gif robux */
+/* gif */
 .robux {
-    width: 260px;
-    margin: 10px auto;
-    display: block;
+    width: 80%;
+    max-width: 300px;
+    margin: auto 0;
     animation: float 3s ease-in-out infinite;
 }
 
 /* botones */
 .buttons {
-    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .buttons img {
@@ -69,7 +77,7 @@ body {
 
 <div class="container">
 
-    <!-- titulo png -->
+    <!-- titulo -->
     <img src="../../assets/img/gifttitle.png" class="title">
 
     <!-- gif -->
