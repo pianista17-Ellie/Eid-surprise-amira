@@ -31,28 +31,30 @@ body {
     animation: showTitle 2.5s ease forwards;
 }
 
-/* ratón aparece rápido con rebote */
+/* contenedor del ratón */
+.mouse-container {
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* ratón */
 .mouse {
     width: 220px;
-    margin: 15px auto 5px;
     cursor: pointer;
-    opacity: 0;
-    animation: bounceIn 0.8s ease forwards, heartbeat 1.6s infinite;
-    animation-delay: 0.5s, 1.3s;
 }
 
-/* latido */
+/* latido (SEPARADO) */
+.heartbeat {
+    animation: heartbeat 1.6s infinite;
+}
+
+/* animación latido */
 @keyframes heartbeat {
-    0% {transform: scale(1);}
-    50% {transform: scale(1.08);}
-    100% {transform: scale(1);}
-}
-
-/* rebote */
-@keyframes bounceIn {
-    0% {opacity: 0; transform: scale(0.6);}
-    60% {opacity: 1; transform: scale(1.1);}
-    100% {transform: scale(1);}
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
 }
 
 /* hint */
@@ -111,9 +113,11 @@ body {
 
     <div class="title">Salam Aleikum Habibi...</div>
 
-    <img src="../../assets/img/ratoncito.gif" class="mouse" id="mouse">
-
-    <div class="hint" id="hint">[click the mouse]</div>
+    <div class="mouse-container">
+        <!-- 👇 SOLO aquí vive el latido -->
+        <img src="../../assets/img/ratoncito.gif" class="mouse heartbeat" id="mouse">
+        <div class="hint" id="hint">[click the mouse]</div>
+    </div>
 
     <div id="text" class="text"></div>
 
@@ -161,7 +165,8 @@ ce que je commence à peine à apprécier.
 Eid Mubarak…!`;
 
 let i = 0;
-const speed = 70; // más lento
+const speed = 70;
+
 const textDiv = document.getElementById("text");
 const music = document.getElementById("music");
 const clickSound = document.getElementById("click");
@@ -186,13 +191,13 @@ mouse.addEventListener("click", () => {
     music.volume = 0.8;
     music.play().catch(()=>{});
 
-    // ❌ quitar SOLO el latido
-    mouse.style.animation = "none";
+    // 🔥 quitar SOLO el latido
+    mouse.classList.remove("heartbeat");
 
-    // ✔ ocultar hint
+    // 🔥 ocultar texto guía
     hint.classList.add("hide");
 
-    // texto
+    // iniciar texto
     setTimeout(typeWriter, 600);
 
 }, { once: true });
