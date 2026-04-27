@@ -5,53 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lettre</title>
 
+<!-- ✨ fuente elegante -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Libre+Baskerville&display=swap" rel="stylesheet">
+
 <style>
 body {
     margin: 0;
     background: #ffedf4;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
 /* contenedor */
 .wrapper {
     width: 100%;
     max-width: 520px;
-    padding: 20px;
+    padding: 25px;
     box-sizing: border-box;
-    position: relative;
+    text-align: center;
 }
 
-/* título grande */
+/* título */
 .title {
-    font-family: "Brush Script MT", cursive;
-    font-size: 40px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 48px;
     color: #a00000;
-    margin-bottom: 10px;
+    opacity: 0;
+    animation: showTitle 1.5s ease forwards;
 }
 
 /* ratón */
 .mouse {
-    position: absolute;
-    top: 120px;
-    left: 0;
     width: 180px;
+    margin: 10px auto;
+    display: block;
+    opacity: 0;
+    animation: showMouse 1.5s ease forwards;
+    animation-delay: 1.5s;
 }
 
 /* texto */
 .text {
-    font-family: "Lucida Handwriting", "Lucida Calligraphy", cursive;
+    font-family: 'Libre Baskerville', serif;
     color: #7a0000;
     font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.7;
     white-space: pre-wrap;
+    margin-top: 10px;
 }
 
 /* botón */
 .back {
     margin-top: 20px;
-    text-align: center;
 }
 
 .back img {
@@ -59,18 +64,15 @@ body {
     cursor: pointer;
 }
 
-/* cursor parpadeante */
-.cursor {
-    display: inline-block;
-    width: 2px;
-    background: #7a0000;
-    margin-left: 3px;
-    animation: blink 1s infinite;
+/* animaciones */
+@keyframes showTitle {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 
-@keyframes blink {
-    0%,50%,100% {opacity:1;}
-    25%,75% {opacity:0;}
+@keyframes showMouse {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
 }
 </style>
 </head>
@@ -88,7 +90,7 @@ body {
     <!-- 💌 texto -->
     <div id="text" class="text"></div>
 
-    <!-- botón -->
+    <!-- 🔘 volver -->
     <div class="back" onclick="goBack()">
         <img src="../../assets/img/return.png">
     </div>
@@ -96,7 +98,7 @@ body {
 </div>
 
 <!-- 🎵 música -->
-<audio id="music" src="../../assets/audio/music1.mp3" autoplay loop></audio>
+<audio id="music" src="../../assets/audio/music1.mp3" loop></audio>
 
 <script>
 const content = `D’abord, pardonne-moi pour le retard :c …
@@ -135,7 +137,9 @@ Eid Mubarak…!`;
 let i = 0;
 const speed = 25;
 const textDiv = document.getElementById("text");
+const music = document.getElementById("music");
 
+/* escribir texto */
 function typeWriter() {
     if (i < content.length) {
         textDiv.innerHTML += content.charAt(i);
@@ -144,17 +148,22 @@ function typeWriter() {
     }
 }
 
+/* secuencia */
 window.onload = () => {
-    typeWriter();
 
-    // activar audio (necesita interacción en algunos móviles)
-    const music = document.getElementById("music");
+    // activar música al primer click
     document.body.addEventListener("click", () => {
         music.play();
     }, { once: true });
+
+    // iniciar escritura después de 3s (1.5 título + 1.5 ratón)
+    setTimeout(typeWriter, 3000);
 };
 
+/* volver */
 function goBack() {
+    music.pause();
+    music.currentTime = 0;
     window.location.href = "../../foryou/";
 }
 </script>
