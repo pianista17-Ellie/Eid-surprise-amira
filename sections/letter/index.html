@@ -22,7 +22,7 @@ body {
     text-align: center;
 }
 
-/* título lento */
+/* título */
 .title {
     font-family: 'Great Vibes', cursive;
     font-size: 48px;
@@ -31,7 +31,7 @@ body {
     animation: showTitle 2.5s ease forwards;
 }
 
-/* contenedor del ratón */
+/* contenedor ratón */
 .mouse-container {
     margin-top: 15px;
     opacity: 0;
@@ -45,12 +45,11 @@ body {
     cursor: pointer;
 }
 
-/* latido (SEPARADO) */
+/* latido */
 .heartbeat {
     animation: heartbeat 1.6s infinite;
 }
 
-/* animación latido */
 @keyframes heartbeat {
     0% { transform: scale(1); }
     50% { transform: scale(1.08); }
@@ -66,12 +65,14 @@ body {
     opacity: 0;
     animation: fadeIn 0.8s ease forwards;
     animation-delay: 1s;
-    transition: opacity 0.3s ease;
+    transition: all 0.4s ease;
 }
 
-/* ocultar hint */
+/* ocultar completamente */
 .hint.hide {
     opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
 }
 
 /* texto */
@@ -114,7 +115,6 @@ body {
     <div class="title">Salam Aleikum Habibi...</div>
 
     <div class="mouse-container">
-        <!-- 👇 SOLO aquí vive el latido -->
         <img src="../../assets/img/ratoncito.gif" class="mouse heartbeat" id="mouse">
         <div class="hint" id="hint">[click the mouse]</div>
     </div>
@@ -191,11 +191,16 @@ mouse.addEventListener("click", () => {
     music.volume = 0.8;
     music.play().catch(()=>{});
 
-    // 🔥 quitar SOLO el latido
+    // quitar latido
     mouse.classList.remove("heartbeat");
 
-    // 🔥 ocultar texto guía
+    // desvanecer hint
     hint.classList.add("hide");
+
+    // luego eliminarlo totalmente
+    setTimeout(() => {
+        hint.style.display = "none";
+    }, 400);
 
     // iniciar texto
     setTimeout(typeWriter, 600);
