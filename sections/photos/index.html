@@ -1,1 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photos</title>
 
+<style>
+body {
+    margin: 0;
+    background: #ffedf4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* contenedor vertical */
+.container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+
+/* titulo */
+.title {
+    width: 70%;
+    max-width: 260px;
+    margin: 10px 0 20px;
+    animation: fadeDown 1s ease;
+}
+
+/* grid de fotos */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+}
+
+/* cada imagen */
+.grid img {
+    width: 100%;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* hover bonito */
+.grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* boton */
+.return {
+    margin: 25px 0 10px;
+}
+
+.return img {
+    width: 150px;
+    cursor: pointer;
+}
+
+/* animacion */
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- titulo -->
+    <img src="../../assets/img/fhotos.png" class="title">
+
+    <!-- fotos -->
+    <div class="grid">
+        <img src="../../assets/img/img1.png">
+        <img src="../../assets/img/img2.png">
+        <img src="../../assets/img/img3.png">
+        <img src="../../assets/img/img4.png">
+        <img src="../../assets/img/img5.png">
+        <img src="../../assets/img/img6.png">
+        <img src="../../assets/img/img7.png">
+        <img src="../../assets/img/img8.png">
+        <img src="../../assets/img/img9.png">
+        <img src="../../assets/img/img10.png">
+        <img src="../../assets/img/img11.png">
+        <img src="../../assets/img/img12.png">
+        <img src="../../assets/img/img13.png">
+        <img src="../../assets/img/img14.png">
+        <img src="../../assets/img/img15.png">
+        <img src="../../assets/img/img16.png">
+    </div>
+
+    <!-- return -->
+    <div class="return">
+        <img src="../../assets/img/return.png" onclick="goBack()">
+    </div>
+
+</div>
+
+<audio id="click" src="../../assets/audio/click.mp3"></audio>
+
+<script>
+const clickSound = document.getElementById("click");
+
+function goBack(){
+    clickSound.play();
+    setTimeout(()=>{
+        window.location.href = "../../foryou/";
+    },200);
+}
+</script>
+
+</body>
+</html>
