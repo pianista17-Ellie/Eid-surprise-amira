@@ -123,7 +123,7 @@ video {
 <!-- CONTENIDO -->
 <div class="container" id="content">
 
-    <video id="video" loop>
+   <video id="video" loop muted playsinline>
         <source src="../../assets/video/video.mp4" type="video/mp4">
     </video>
 
@@ -145,13 +145,17 @@ const content = document.getElementById("content");
 function startVideo(){
     clickSound.play();
 
-    music.volume = 0.7;
-    music.play();
-
-    video.play();
-
+    // mostrar contenido primero
     document.querySelector(".intro").style.display = "none";
     content.style.display = "flex";
+
+    // intentar reproducir música
+    music.volume = 0.7;
+    music.play().catch(()=>{});
+
+    // forzar reproducción del video (truco móvil)
+    video.muted = true;
+    video.play().catch(()=>{});
 
     setTimeout(()=> video.classList.add("fadeIn"), 200);
 }
