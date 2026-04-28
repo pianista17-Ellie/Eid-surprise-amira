@@ -11,24 +11,48 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* INTRO */
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.heart {
+    font-size: 50px;
+    color: #d31621;
+    animation: heartbeat 1.2s infinite;
+}
+
+.click-text {
+    font-size: 14px;
+    color: #a00000;
 }
 
 /* CONTENEDOR */
 .container {
     width: 100%;
     max-width: 480px;
-    min-height: 100vh;
-    display: flex;
+    height: 100vh;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 18px;
 }
 
-/* TITULO MÁS GRANDE */
+/* TITULO */
 .title {
     width: 85%;
     max-width: 340px;
+    opacity: 0;
 }
 
 /* FECHA */
@@ -36,14 +60,15 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     color: #a00000;
+    opacity: 0;
 }
 
-/* FILAS MÁS JUNTAS */
+/* FILAS */
 .row{
   display:flex;
   justify-content:center;
   align-items:center;
-  margin:6px 0; /* 🔥 ajuste fino */
+  margin:6px 0;
 }
 
 /* NÚMEROS */
@@ -52,7 +77,7 @@ body {
   gap:8px;
 }
 
-/* RECTÁNGULOS MÁS PEQUEÑOS */
+/* BLOQUES */
 .num{
   width:52px;
   height:78px;
@@ -82,14 +107,30 @@ body {
     width: 130px;
     cursor: pointer;
     margin-top: 12px;
+    opacity: 0;
 }
 
-/* ENTRADA */
-.fadeIn {
-    animation: fadeIn 1s ease;
+/* ANIMACIONES */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
-@keyframes fadeIn {
+.fadeDown {
+    animation: fadeDown 1s forwards;
+}
+
+.fadeUp {
+    animation: fadeUp 1s forwards;
+}
+
+@keyframes fadeDown {
+    from {opacity:0; transform:translateY(-20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeUp {
     from {opacity:0; transform:translateY(20px);}
     to {opacity:1; transform:translateY(0);}
 }
@@ -98,15 +139,18 @@ body {
 
 <body>
 
-<div class="container fadeIn">
+<!-- INTRO -->
+<div class="intro" onclick="startTime()">
+    <div class="heart">❤</div>
+    <div class="click-text">click here</div>
+</div>
 
-    <!-- titulo -->
-    <img src="../../assets/img/time.png" class="title">
+<!-- CONTENIDO -->
+<div class="container" id="content">
 
-    <!-- fecha -->
-    <div class="date">05/02/2025 13:38pm</div>
+    <img src="../../assets/img/time.png" class="title" id="title">
 
-    <!-- CONTADOR -->
+    <div class="date" id="date">05/02/2025 13:38pm</div>
 
     <div class="row">
       <div class="numbers" id="days"></div>
@@ -128,18 +172,50 @@ body {
       <div class="label">: SECONDS</div>
     </div>
 
-    <!-- return -->
     <div class="return">
-        <img src="../../assets/img/return.png" onclick="goBack()">
+        <img src="../../assets/img/return.png" id="returnBtn" onclick="goBack()">
     </div>
 
 </div>
 
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
+<audio id="music" src="../../assets/audio/music4.mp3" loop></audio>
 
 <script>
 const clickSound = document.getElementById("click");
+const music = document.getElementById("music");
 
+const content = document.getElementById("content");
+const title = document.getElementById("title");
+const dateText = document.getElementById("date");
+const returnBtn = document.getElementById("returnBtn");
+
+/* INICIO */
+function startTime(){
+    clickSound.play();
+
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    let fade = setInterval(()=>{
+        if(vol < 1){
+            vol += 0.03;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    },120);
+
+    document.querySelector(".intro").style.display = "none";
+    content.style.display = "flex";
+
+    setTimeout(()=> title.classList.add("fadeDown"), 200);
+    setTimeout(()=> dateText.classList.add("fadeDown"), 400);
+    setTimeout(()=> returnBtn.style.opacity = "1", 800);
+}
+
+/* CONTADOR */
 const startDate = new Date("2025-02-05T13:38:00");
 
 function updateTime(){
@@ -174,8 +250,12 @@ function display(id, value){
 setInterval(updateTime, 1000);
 updateTime();
 
+/* RETURN */
 function goBack(){
     clickSound.play();
+    music.pause();
+    music.currentTime = 0;
+
     setTimeout(()=>{
         window.location.href = "../../foryou/";
     },200);
