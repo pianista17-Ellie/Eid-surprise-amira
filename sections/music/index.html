@@ -11,6 +11,7 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 /* contenedor */
@@ -23,44 +24,46 @@ body {
     align-items: center;
     justify-content: center;
     gap: 25px;
+    position: relative;
 }
 
 /* titulo */
 .title {
     width: 70%;
     max-width: 260px;
+    z-index: 2;
 }
 
-/* player base */
+/* player */
 .player {
     position: relative;
     width: 85%;
     max-width: 320px;
+    z-index: 2;
 }
 
-/* fondo spoty */
 .spoty {
     width: 100%;
     display: block;
 }
 
-/* disco dentro del circulo */
+/* 🔥 DISCO MÁS GRANDE Y UN POCO MÁS ARRIBA */
 .disc {
     position: absolute;
-    top: 12%; /* 🔥 ajustado al circulo */
+    top: 9%;
     left: 50%;
     transform: translateX(-50%);
-    width: 62%;
-    animation: spin 10s linear infinite; /* 🔥 más lento */
+    width: 68%;
+    animation: spin 11s linear infinite;
 }
 
-/* boton play ABAJO */
+/* 🔥 PLAY MÁS ABAJO Y MÁS GRANDE */
 .play {
     position: absolute;
-    bottom: 12%;
+    bottom: 9%;
     left: 50%;
     transform: translateX(-50%);
-    width: 18%;
+    width: 22%;
     cursor: pointer;
     animation: heartbeat 1.4s infinite;
 }
@@ -69,7 +72,32 @@ body {
 .return img {
     width: 150px;
     cursor: pointer;
+    z-index: 2;
 }
+
+/* ✨ NOTAS MUSICALES FONDO */
+.notes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.note {
+    position: absolute;
+    font-size: 18px;
+    color: #ff9eb5;
+    opacity: 0;
+    animation: floatNote 6s infinite ease-in;
+}
+
+/* posiciones random */
+.note:nth-child(1){ left:10%; animation-delay:0s;}
+.note:nth-child(2){ left:25%; animation-delay:2s;}
+.note:nth-child(3){ left:70%; animation-delay:1s;}
+.note:nth-child(4){ left:85%; animation-delay:3s;}
+.note:nth-child(5){ left:50%; animation-delay:4s;}
 
 /* animaciones */
 @keyframes spin {
@@ -82,6 +110,22 @@ body {
     50% { transform: translateX(-50%) scale(1.12); }
     100% { transform: translateX(-50%) scale(1); }
 }
+
+@keyframes floatNote {
+    0% {
+        bottom: 0;
+        opacity: 0;
+        transform: translateY(0) scale(0.8);
+    }
+    30% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateY(-40px) scale(1.2);
+    }
+}
 </style>
 </head>
 
@@ -89,10 +133,19 @@ body {
 
 <div class="container">
 
+    <!-- ✨ notas -->
+    <div class="notes">
+        <div class="note">♪</div>
+        <div class="note">♫</div>
+        <div class="note">♪</div>
+        <div class="note">♬</div>
+        <div class="note">♫</div>
+    </div>
+
     <!-- titulo -->
     <img src="../../assets/img/playlist.png" class="title">
 
-    <!-- reproductor -->
+    <!-- player -->
     <div class="player">
         <img src="../../assets/img/spoty.png" class="spoty">
         <img src="../../assets/img/disc.png" class="disc">
