@@ -1,1 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video</title>
 
+<style>
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background: #043562;
+}
+
+/* FONDO DISCOTECA */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, #0a4a8a, transparent),
+                radial-gradient(circle at 80% 70%, #061f4d, transparent),
+                radial-gradient(circle at 50% 50%, #0d2c6b, transparent);
+    animation: moveBg 8s infinite alternate ease-in-out;
+    z-index: 0;
+}
+
+@keyframes moveBg {
+    0% { transform: scale(1) translate(0,0); }
+    100% { transform: scale(1.2) translate(-20px,20px); }
+}
+
+/* INTRO */
+.intro {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.heart {
+    font-size: 50px;
+    color: #ff4d6d;
+    animation: heartbeat 1.2s infinite;
+}
+
+.video-emoji {
+    font-size: 22px;
+}
+
+.click-text {
+    font-size: 14px;
+    color: white;
+}
+
+/* CONTENEDOR */
+.container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+/* VIDEO */
+video {
+    width: 90%;
+    max-width: 360px;
+    border-radius: 18px;
+    margin-top: 20px;
+    opacity: 0;
+}
+
+/* RETURN */
+.return {
+    margin-top: 25px;
+}
+
+.return img {
+    width: 140px;
+    cursor: pointer;
+}
+
+/* ANIMACIONES */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.fadeIn {
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<!-- INTRO -->
+<div class="intro" onclick="startVideo()">
+    <div class="heart">❤</div>
+    <div class="video-emoji">🎬</div>
+    <div class="click-text">click here</div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="container" id="content">
+
+    <video id="video" loop>
+        <source src="../../assets/video/video.mp4" type="video/mp4">
+    </video>
+
+    <div class="return">
+        <img src="../../assets/img/return.png" onclick="goBack()">
+    </div>
+
+</div>
+
+<audio id="click" src="../../assets/audio/click.mp3"></audio>
+<audio id="music" src="../../assets/audio/music5.mp3" loop></audio>
+
+<script>
+const clickSound = document.getElementById("click");
+const music = document.getElementById("music");
+const video = document.getElementById("video");
+const content = document.getElementById("content");
+
+function startVideo(){
+    clickSound.play();
+
+    music.volume = 0.7;
+    music.play();
+
+    video.play();
+
+    document.querySelector(".intro").style.display = "none";
+    content.style.display = "flex";
+
+    setTimeout(()=> video.classList.add("fadeIn"), 200);
+}
+
+function goBack(){
+    clickSound.play();
+
+    music.pause();
+    music.currentTime = 0;
+
+    video.pause();
+    video.currentTime = 0;
+
+    setTimeout(()=>{
+        window.location.href = "../../foryou/";
+    },200);
+}
+</script>
+
+</body>
+</html>
