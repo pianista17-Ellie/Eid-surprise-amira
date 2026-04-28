@@ -11,10 +11,9 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-/* contenedor vertical */
+/* contenedor */
 .container {
     width: 100%;
     max-width: 420px;
@@ -34,7 +33,7 @@ body {
     animation: fadeDown 1s ease;
 }
 
-/* grid de fotos */
+/* grid */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -42,7 +41,6 @@ body {
     width: 100%;
 }
 
-/* cada imagen */
 .grid img {
     width: 100%;
     border-radius: 12px;
@@ -50,13 +48,12 @@ body {
     transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* hover bonito */
 .grid img:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-/* boton */
+/* return */
 .return {
     margin: 25px 0 10px;
 }
@@ -66,10 +63,52 @@ body {
     cursor: pointer;
 }
 
-/* animacion */
+/* 🔥 GALERÍA FULLSCREEN */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 12px;
+    animation: zoomIn 0.3s ease;
+}
+
+/* botón cerrar */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* animaciones */
 @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-20px);}
     to { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+    from {opacity:0;}
+    to {opacity:1;}
+}
+
+@keyframes zoomIn {
+    from {transform: scale(0.8);}
+    to {transform: scale(1);}
 }
 </style>
 </head>
@@ -78,46 +117,62 @@ body {
 
 <div class="container">
 
-    <!-- titulo -->
     <img src="../../assets/img/fhotos.png" class="title">
 
-    <!-- fotos -->
     <div class="grid">
-        <img src="../../assets/img/img1.png">
-        <img src="../../assets/img/img2.png">
-        <img src="../../assets/img/img3.png">
-        <img src="../../assets/img/img4.png">
-        <img src="../../assets/img/img5.png">
-        <img src="../../assets/img/img6.png">
-        <img src="../../assets/img/img7.png">
-        <img src="../../assets/img/img8.png">
-        <img src="../../assets/img/img9.png">
-        <img src="../../assets/img/img10.png">
-        <img src="../../assets/img/img11.png">
-        <img src="../../assets/img/img12.png">
-        <img src="../../assets/img/img13.png">
-        <img src="../../assets/img/img14.png">
-        <img src="../../assets/img/img15.png">
-        <img src="../../assets/img/img16.png">
+        <img src="../../assets/img/img1.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img2.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img3.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img4.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img5.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img6.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img7.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img8.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img9.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img10.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img11.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img12.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img13.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img14.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img15.png" onclick="openImg(this.src)">
+        <img src="../../assets/img/img16.png" onclick="openImg(this.src)">
     </div>
 
-    <!-- return -->
     <div class="return">
         <img src="../../assets/img/return.png" onclick="goBack()">
     </div>
 
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeImg()">
+    <span class="close">&times;</span>
+    <img id="lightbox-img">
+</div>
+
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
 
 <script>
 const clickSound = document.getElementById("click");
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
 
 function goBack(){
     clickSound.play();
     setTimeout(()=>{
         window.location.href = "../../foryou/";
     },200);
+}
+
+/* abrir imagen */
+function openImg(src){
+    lightbox.style.display = "flex";
+    lightboxImg.src = src;
+}
+
+/* cerrar */
+function closeImg(){
+    lightbox.style.display = "none";
 }
 </script>
 
