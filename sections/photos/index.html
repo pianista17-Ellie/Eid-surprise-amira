@@ -11,14 +11,41 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* contenedor */
+/* INTRO */
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.heart {
+    font-size: 50px;
+    color: #d31621;
+    animation: heartbeat 1.2s infinite;
+}
+
+.photo-emoji {
+    font-size: 20px;
+}
+
+.click-text {
+    font-size: 14px;
+    color: #a00000;
+}
+
+/* CONTENEDOR */
 .container {
     width: 100%;
     max-width: 420px;
     min-height: 100vh;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     padding: 20px 10px;
@@ -30,6 +57,7 @@ body {
     width: 70%;
     max-width: 260px;
     margin: 10px 0 20px;
+    opacity: 0;
 }
 
 /* grid */
@@ -38,6 +66,7 @@ body {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     width: 100%;
+    opacity: 0;
 }
 
 .grid img {
@@ -54,6 +83,7 @@ body {
 /* return */
 .return {
     margin: 25px 0 10px;
+    opacity: 0;
 }
 
 .return img {
@@ -75,15 +105,12 @@ body {
     z-index: 999;
 }
 
-/* imagen grande */
 .lightbox img {
     max-width: 90%;
     max-height: 80%;
     border-radius: 12px;
-    transition: 0.3s;
 }
 
-/* botones navegación */
 .nav {
     position: absolute;
     top: 50%;
@@ -91,13 +118,11 @@ body {
     font-size: 35px;
     color: white;
     cursor: pointer;
-    user-select: none;
 }
 
 .prev { left: 15px; }
 .next { right: 15px; }
 
-/* cerrar */
 .close {
     position: absolute;
     top: 15px;
@@ -106,16 +131,49 @@ body {
     color: white;
     cursor: pointer;
 }
+
+/* ANIMACIONES */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.fadeDown {
+    animation: fadeDown 1s forwards;
+}
+
+.fadeUp {
+    animation: fadeUp 1s forwards;
+}
+
+@keyframes fadeDown {
+    from {opacity:0; transform:translateY(-20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeUp {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- INTRO -->
+<div class="intro" onclick="startPhotos()">
+    <div class="heart">❤</div>
+    <div class="photo-emoji">📸</div>
+    <div class="click-text">click here</div>
+</div>
 
-    <img src="../../assets/img/fhotos.png" class="title">
+<!-- CONTENIDO -->
+<div class="container" id="content">
 
-    <div class="grid">
+    <img src="../../assets/img/fhotos.png" class="title" id="title">
+
+    <div class="grid" id="grid">
         <img src="../../assets/img/img1.png" onclick="openImg(0)">
         <img src="../../assets/img/img2.png" onclick="openImg(1)">
         <img src="../../assets/img/img3.png" onclick="openImg(2)">
@@ -135,7 +193,7 @@ body {
     </div>
 
     <div class="return">
-        <img src="../../assets/img/return.png" onclick="goBack()">
+        <img src="../../assets/img/return.png" id="returnBtn" onclick="goBack()">
     </div>
 
 </div>
@@ -149,27 +207,48 @@ body {
 </div>
 
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
+<audio id="music" src="../../assets/audio/music3.mp3" loop></audio>
 
 <script>
 const clickSound = document.getElementById("click");
+const music = document.getElementById("music");
 
+const content = document.getElementById("content");
+const title = document.getElementById("title");
+const grid = document.getElementById("grid");
+const returnBtn = document.getElementById("returnBtn");
+
+/* INTRO */
+function startPhotos(){
+    clickSound.play();
+
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    let fade = setInterval(()=>{
+        if(vol < 0.6){
+            vol += 0.02;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    },120);
+
+    document.querySelector(".intro").style.display = "none";
+    content.style.display = "flex";
+
+    setTimeout(()=> title.classList.add("fadeDown"), 200);
+    setTimeout(()=> grid.classList.add("fadeUp"), 400);
+    setTimeout(()=> returnBtn.style.opacity = "1", 800);
+}
+
+/* GALERÍA */
 const images = [
-"../../assets/img/img1.png",
-"../../assets/img/img2.png",
-"../../assets/img/img3.png",
-"../../assets/img/img4.png",
-"../../assets/img/img5.png",
-"../../assets/img/img6.png",
-"../../assets/img/img7.png",
-"../../assets/img/img8.png",
-"../../assets/img/img9.png",
-"../../assets/img/img10.png",
-"../../assets/img/img11.png",
-"../../assets/img/img12.png",
-"../../assets/img/img13.png",
-"../../assets/img/img14.png",
-"../../assets/img/img15.png",
-"../../assets/img/img16.png"
+"../../assets/img/img1.png","../../assets/img/img2.png","../../assets/img/img3.png","../../assets/img/img4.png",
+"../../assets/img/img5.png","../../assets/img/img6.png","../../assets/img/img7.png","../../assets/img/img8.png",
+"../../assets/img/img9.png","../../assets/img/img10.png","../../assets/img/img11.png","../../assets/img/img12.png",
+"../../assets/img/img13.png","../../assets/img/img14.png","../../assets/img/img15.png","../../assets/img/img16.png"
 ];
 
 let current = 0;
@@ -197,8 +276,13 @@ function prevImg(){
     lightboxImg.src = images[current];
 }
 
+/* RETURN */
 function goBack(){
     clickSound.play();
+
+    music.pause();
+    music.currentTime = 0;
+
     setTimeout(()=>{
         window.location.href = "../../foryou/";
     },200);
