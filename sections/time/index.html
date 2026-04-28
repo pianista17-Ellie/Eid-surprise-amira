@@ -13,74 +13,75 @@ body {
     justify-content: center;
 }
 
-/* CONTENEDOR */
+/* CONTENEDOR MÁS GRANDE */
 .container {
     width: 100%;
-    max-width: 420px;
+    max-width: 480px; /* 🔥 más grande */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 22px;
 }
 
 /* TITULO */
 .title {
-    width: 65%;
-    max-width: 240px;
+    width: 75%;
+    max-width: 300px;
 }
 
 /* FECHA */
 .date {
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: #a00000;
-    margin-top: -5px;
-}
-
-/* CONTADOR */
-.timer {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 10px;
-}
-
-/* FILA */
-.time-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* RECTANGULO */
-.box {
-    background: #d31621;
-    color: white;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 26px;
-    width: 70px;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    letter-spacing: 2px;
-}
-
-/* TEXTO LATERAL */
-.label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     color: #a00000;
 }
 
-/* RETURN */
+/* FILAS */
+.row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:18px 0;
+}
+
+/* CONTENEDOR DE NÚMEROS */
+.numbers{
+  display:flex;
+  gap:12px;
+}
+
+/* 🔥 BLOQUES MÁS GRANDES */
+.num{
+  width:60px;
+  height:90px;
+  background:#d31621;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:34px;
+  border-radius:14px;
+  font-weight:700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* LABEL AL COSTADO */
+.label{
+  margin-left:18px;
+  color:#a00000;
+  font-size:16px;
+  letter-spacing:2px;
+  font-weight:700;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* RETURN MÁS PROPORCIONAL */
 .return img {
-    width: 150px;
+    width: 130px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 /* ENTRADA */
@@ -105,29 +106,26 @@ body {
     <!-- fecha -->
     <div class="date">05/02/2025 13:38pm</div>
 
-    <!-- contador -->
-    <div class="timer">
+    <!-- CONTADOR -->
 
-        <div class="time-row">
-            <div class="box" id="days">00</div>
-            <div class="label">days</div>
-        </div>
+    <div class="row">
+      <div class="numbers" id="days"></div>
+      <div class="label">: DAYS</div>
+    </div>
 
-        <div class="time-row">
-            <div class="box" id="hours">00</div>
-            <div class="label">hours</div>
-        </div>
+    <div class="row">
+      <div class="numbers" id="hours"></div>
+      <div class="label">: HOURS</div>
+    </div>
 
-        <div class="time-row">
-            <div class="box" id="minutes">00</div>
-            <div class="label">minutes</div>
-        </div>
+    <div class="row">
+      <div class="numbers" id="minutes"></div>
+      <div class="label">: MINUTES</div>
+    </div>
 
-        <div class="time-row">
-            <div class="box" id="seconds">00</div>
-            <div class="label">seconds</div>
-        </div>
-
+    <div class="row">
+      <div class="numbers" id="seconds"></div>
+      <div class="label">: SECONDS</div>
     </div>
 
     <!-- return -->
@@ -142,32 +140,35 @@ body {
 <script>
 const clickSound = document.getElementById("click");
 
-/* FECHA INICIO */
 const startDate = new Date("2025-02-05T13:38:00");
 
-/* ELEMENTOS */
-const d = document.getElementById("days");
-const h = document.getElementById("hours");
-const m = document.getElementById("minutes");
-const s = document.getElementById("seconds");
-
 function updateTime(){
-    const now = new Date();
-    let diff = Math.floor((now - startDate) / 1000);
+  const now = new Date();
+  const diff = now - startDate;
 
-    let days = Math.floor(diff / (3600 * 24));
-    diff %= (3600 * 24);
+  const seconds = Math.floor(diff / 1000) % 60;
+  const minutes = Math.floor(diff / (1000 * 60)) % 60;
+  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
-    let hours = Math.floor(diff / 3600);
-    diff %= 3600;
+  display("days", days);
+  display("hours", hours);
+  display("minutes", minutes);
+  display("seconds", seconds);
+}
 
-    let minutes = Math.floor(diff / 60);
-    let seconds = diff % 60;
+function display(id, value){
+  const container = document.getElementById(id);
+  container.innerHTML = "";
 
-    d.textContent = days.toString().padStart(2,'0');
-    h.textContent = hours.toString().padStart(2,'0');
-    m.textContent = minutes.toString().padStart(2,'0');
-    s.textContent = seconds.toString().padStart(2,'0');
+  const str = value.toString().padStart(2, "0");
+
+  for(let i=0; i<str.length; i++){
+    const div = document.createElement("div");
+    div.className = "num";
+    div.textContent = str[i];
+    container.appendChild(div);
+  }
 }
 
 setInterval(updateTime, 1000);
