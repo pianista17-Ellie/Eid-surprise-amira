@@ -21,8 +21,8 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center; /* 🔥 clave */
     gap: 25px;
     padding: 20px;
 }
@@ -32,6 +32,10 @@ body {
     width: 95%;
     max-width: 360px;
     animation: float 3s ease-in-out infinite;
+}
+
+/* contenedor relativo para destellos */
+.cartel-wrapper {
     position: relative;
 }
 
@@ -40,6 +44,8 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
+    top: 0;
+    left: 0;
     pointer-events: none;
 }
 
@@ -58,8 +64,14 @@ body {
 .sparkles span:nth-child(3){ top:70%; left:40%; animation-delay:1s;}
 .sparkles span:nth-child(4){ top:50%; left:10%; animation-delay:1.5s;}
 
+/* botones IGUALES al index */
+.buttons {
+    margin-top: 10px;
+}
+
 .buttons img {
     width: 140px;
+    max-width: 40%; /* 🔥 evita que se agranden */
     margin: 10px;
     cursor: pointer;
 }
@@ -94,7 +106,8 @@ body {
 
 <div class="container">
 
-    <div style="position: relative;">
+    <!-- cartel + destellos -->
+    <div class="cartel-wrapper">
         <img src="../../assets/img/cartel.png" class="cartel">
 
         <div class="sparkles">
@@ -105,7 +118,8 @@ body {
         </div>
     </div>
 
-    <div>
+    <!-- botones -->
+    <div class="buttons">
         <img src="../../assets/img/return.png" onclick="goBack()">
         <img src="../../assets/img/come.png" class="come" onclick="goRoblox()">
     </div>
@@ -119,7 +133,9 @@ const clickSound = document.getElementById("click");
 
 function goBack(){
     clickSound.play();
-    setTimeout(()=>{ window.location.href = "index.html"; },200);
+    setTimeout(()=>{
+        window.location.href = "index.html";
+    },200);
 }
 
 function goRoblox(){
