@@ -11,13 +11,12 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
-    height: 100vh;
-    overflow: hidden;
+    overflow-x: hidden; /* ✅ solo bloquea horizontal */
 }
 
 /* INTRO */
 .intro {
-    position: absolute;
+    position: fixed; /* 🔥 se mantiene centrado sin romper scroll */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -26,6 +25,7 @@ body {
     align-items: center;
     gap: 8px;
     cursor: pointer;
+    z-index: 10;
 }
 
 .heart {
@@ -72,11 +72,6 @@ body {
     opacity: 0;
 }
 
-/* hace que el return se vaya abajo */
-.spacer {
-    flex: 1;
-}
-
 .grid img {
     width: 100%;
     border-radius: 12px;
@@ -88,9 +83,9 @@ body {
     transform: scale(1.05);
 }
 
-/* RETURN ABAJO */
+/* RETURN REAL ABAJO */
 .return {
-    margin: 15px 0 10px;
+    margin: 25px 0 15px;
     opacity: 0;
 }
 
@@ -178,10 +173,8 @@ body {
 
 <div class="container" id="content">
 
-    <!-- TITULO -->
     <img src="../../assets/img/title.png" class="title" id="title">
 
-    <!-- GRID -->
     <div class="grid" id="grid">
         <img src="../../assets/img/img1.png" onclick="openImg(0)">
         <img src="../../assets/img/img2.png" onclick="openImg(1)">
@@ -201,9 +194,7 @@ body {
         <img src="../../assets/img/img16.png" onclick="openImg(15)">
     </div>
 
-    <div class="spacer"></div>
-
-    <!-- RETURN -->
+    <!-- ahora sí abajo real -->
     <div class="return">
         <img src="../../assets/img/return.png" id="returnBtn" onclick="goBack()">
     </div>
