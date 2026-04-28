@@ -11,148 +11,177 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100vh;
     overflow: hidden;
 }
 
-/* contenedor */
+/* CONTENEDOR GENERAL */
 .container {
     width: 100%;
     max-width: 420px;
     height: 100vh;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+}
+
+/* INTRO CORAZÓN */
+.intro {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 25px;
-    position: relative;
+    gap: 10px;
+    cursor: pointer;
 }
 
-/* titulo */
+.heart {
+    font-size: 50px;
+    color: red;
+    animation: heartbeat 1.2s infinite;
+}
+
+.small-heart {
+    font-size: 20px;
+    color: red;
+    animation: heartbeat 1.2s infinite;
+}
+
+.click-text {
+    font-size: 14px;
+    color: #a00000;
+}
+
+/* TITULO MÁS GRANDE Y ARRIBA */
 .title {
-    width: 70%;
-    max-width: 260px;
-    z-index: 2;
+    width: 80%;
+    max-width: 300px;
+    margin-top: -10px;
 }
 
-/* player */
+/* PLAYER */
 .player {
     position: relative;
     width: 85%;
     max-width: 320px;
-    z-index: 2;
 }
 
+/* BASE */
 .spoty {
     width: 100%;
-    display: block;
 }
 
-/* 🔥 DISCO MÁS GRANDE Y UN POCO MÁS ARRIBA */
+/* DISCO MÁS GRANDE Y ARRIBA */
 .disc {
     position: absolute;
-    top: 9%;
+    top: 6%;
     left: 50%;
     transform: translateX(-50%);
-    width: 68%;
-    animation: spin 11s linear infinite;
+    width: 72%;
+    animation: spin 12s linear infinite;
 }
 
-/* 🔥 PLAY MÁS ABAJO Y MÁS GRANDE */
+/* PLAY MÁS ABAJO Y MÁS GRANDE */
 .play {
     position: absolute;
-    bottom: 9%;
+    bottom: 6%;
     left: 50%;
     transform: translateX(-50%);
-    width: 22%;
+    width: 24%;
     cursor: pointer;
     animation: heartbeat 1.4s infinite;
 }
 
-/* return */
+/* RETURN */
 .return img {
     width: 150px;
     cursor: pointer;
-    z-index: 2;
 }
 
-/* ✨ NOTAS MUSICALES FONDO */
+/* NOTAS */
 .notes {
     position: absolute;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
 }
 
 .note {
     position: absolute;
-    font-size: 18px;
     color: #ff9eb5;
+    font-size: 18px;
     opacity: 0;
-    animation: floatNote 6s infinite ease-in;
+    animation: floatNote 6s infinite;
 }
 
-/* posiciones random */
 .note:nth-child(1){ left:10%; animation-delay:0s;}
-.note:nth-child(2){ left:25%; animation-delay:2s;}
+.note:nth-child(2){ left:30%; animation-delay:2s;}
 .note:nth-child(3){ left:70%; animation-delay:1s;}
 .note:nth-child(4){ left:85%; animation-delay:3s;}
 .note:nth-child(5){ left:50%; animation-delay:4s;}
 
-/* animaciones */
+/* ANIMACIONES */
 @keyframes spin {
     from { transform: translateX(-50%) rotate(0deg); }
     to { transform: translateX(-50%) rotate(360deg); }
 }
 
 @keyframes heartbeat {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.12); }
-    100% { transform: translateX(-50%) scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
 }
 
 @keyframes floatNote {
-    0% {
-        bottom: 0;
-        opacity: 0;
-        transform: translateY(0) scale(0.8);
-    }
-    30% {
-        opacity: 1;
-    }
-    100% {
-        bottom: 100%;
-        opacity: 0;
-        transform: translateY(-40px) scale(1.2);
-    }
+    0% { bottom: 0; opacity: 0; }
+    30% { opacity: 1; }
+    100% { bottom: 100%; opacity: 0; }
+}
+
+/* ENTRADA */
+.fadeIn {
+    animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- INTRO -->
+<div class="intro" onclick="startExperience()">
+    <div class="heart">❤</div>
+    <div class="click-text">click here</div>
+    <div class="small-heart">❤</div>
+</div>
 
-    <!-- ✨ notas -->
+<!-- CONTENIDO -->
+<div class="container" id="content">
+
     <div class="notes">
         <div class="note">♪</div>
         <div class="note">♫</div>
-        <div class="note">♪</div>
         <div class="note">♬</div>
+        <div class="note">♪</div>
         <div class="note">♫</div>
     </div>
 
-    <!-- titulo -->
     <img src="../../assets/img/playlist.png" class="title">
 
-    <!-- player -->
     <div class="player">
         <img src="../../assets/img/spoty.png" class="spoty">
         <img src="../../assets/img/disc.png" class="disc">
         <img src="../../assets/img/play.png" class="play" onclick="openSpotify()">
     </div>
 
-    <!-- return -->
     <div class="return">
         <img src="../../assets/img/return.png" onclick="goBack()">
     </div>
@@ -160,9 +189,21 @@ body {
 </div>
 
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
+<audio id="music" src="../../assets/audio/music2arab.mp3"></audio>
 
 <script>
 const clickSound = document.getElementById("click");
+const music = document.getElementById("music");
+const content = document.getElementById("content");
+
+function startExperience(){
+    clickSound.play();
+    music.play();
+
+    document.querySelector(".intro").style.display = "none";
+    content.style.display = "flex";
+    content.classList.add("fadeIn");
+}
 
 function openSpotify(){
     clickSound.play();
