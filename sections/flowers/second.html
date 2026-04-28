@@ -15,28 +15,27 @@ body {
     height: 100vh;
 }
 
-/* contenedor tipo vertical */
 .container {
     width: 100%;
-    max-width: 420px; /* formato tipo celular */
+    max-width: 420px;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px 10px;
+    justify-content: center; /* 🔥 clave */
+    gap: 25px;
+    padding: 20px;
 }
 
-/* imagen cartel */
+/* cartel más grande */
 .cartel {
-    width: 85%;
-    max-width: 320px;
-    margin-top: 40px;
+    width: 95%;
+    max-width: 360px;
     animation: float 3s ease-in-out infinite;
     position: relative;
 }
 
-/* DESTELLOS ✨ */
+/* destellos */
 .sparkles {
     position: absolute;
     width: 100%;
@@ -54,24 +53,18 @@ body {
     animation: sparkle 2s infinite;
 }
 
-/* posiciones random */
-.sparkles span:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-.sparkles span:nth-child(2) { top: 30%; left: 80%; animation-delay: 0.5s; }
-.sparkles span:nth-child(3) { top: 70%; left: 40%; animation-delay: 1s; }
-.sparkles span:nth-child(4) { top: 50%; left: 10%; animation-delay: 1.5s; }
-
-/* botones */
-.buttons {
-    margin-bottom: 30px;
-}
+.sparkles span:nth-child(1){ top:10%; left:20%; animation-delay:0s;}
+.sparkles span:nth-child(2){ top:30%; left:80%; animation-delay:0.5s;}
+.sparkles span:nth-child(3){ top:70%; left:40%; animation-delay:1s;}
+.sparkles span:nth-child(4){ top:50%; left:10%; animation-delay:1.5s;}
 
 .buttons img {
-    width: 130px;
+    width: 140px;
     margin: 10px;
     cursor: pointer;
 }
 
-/* latido botón */
+/* latido */
 .come {
     animation: heartbeat 1.4s infinite;
 }
@@ -79,7 +72,7 @@ body {
 /* animaciones */
 @keyframes float {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-10px); }
     100% { transform: translateY(0px); }
 }
 
@@ -101,7 +94,6 @@ body {
 
 <div class="container">
 
-    <!-- cartel + destellos -->
     <div style="position: relative;">
         <img src="../../assets/img/cartel.png" class="cartel">
 
@@ -113,8 +105,7 @@ body {
         </div>
     </div>
 
-    <!-- botones -->
-    <div class="buttons">
+    <div>
         <img src="../../assets/img/return.png" onclick="goBack()">
         <img src="../../assets/img/come.png" class="come" onclick="goRoblox()">
     </div>
@@ -128,9 +119,7 @@ const clickSound = document.getElementById("click");
 
 function goBack(){
     clickSound.play();
-    setTimeout(()=>{
-        window.location.href = "index.html";
-    },200);
+    setTimeout(()=>{ window.location.href = "index.html"; },200);
 }
 
 function goRoblox(){
