@@ -1,185 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Time</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-body{
-  margin:0;
-  font-family:'Montserrat', sans-serif;
-  background:#ffedf4;
-  display:flex;
-  justify-content:center;
+body {
+    margin: 0;
+    background: #ffedf4;
+    display: flex;
+    justify-content: center;
 }
 
-.container{
-  width:360px;
-  text-align:center;
-  padding-top:40px;
+/* CONTENEDOR */
+.container {
+    width: 100%;
+    max-width: 420px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
 }
 
 /* TITULO */
-.title img{
-  width:220px;
-  animation:fadeIn 1.2s ease;
+.title {
+    width: 65%;
+    max-width: 240px;
 }
 
 /* FECHA */
-.date{
-  margin-top:10px;
-  color:#d31621;
-  font-size:14px;
+.date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: #a00000;
+    margin-top: -5px;
 }
 
 /* CONTADOR */
-.time-box{
-  margin-top:40px;
+.timer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
 }
 
-.row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  margin:15px 0;
+/* FILA */
+.time-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.numbers{
-  display:flex;
-  gap:10px;
+/* RECTANGULO */
+.box {
+    background: #d31621;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    width: 70px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    letter-spacing: 2px;
 }
 
-.num{
-  width:45px;
-  height:70px;
-  background:#d31621;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:28px;
-  border-radius:12px;
-  font-weight:700;
-  animation:pop 0.3s ease;
+/* TEXTO LATERAL */
+.label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    color: #a00000;
 }
 
-.label{
-  margin-left:15px;
-  color:#d31621;
-  font-size:14px;
-  letter-spacing:2px;
-  font-weight:700;
+/* RETURN */
+.return img {
+    width: 150px;
+    cursor: pointer;
+    margin-top: 20px;
 }
 
-/* BOTON */
-.btn{
-  margin-top:45px;
+/* ENTRADA */
+.fadeIn {
+    animation: fadeIn 1s ease;
 }
 
-.return-btn{
-  width:150px;
-  cursor:pointer;
-  transition:0.25s;
+@keyframes fadeIn {
+    from {opacity:0; transform:translateY(20px);}
+    to {opacity:1; transform:translateY(0);}
 }
-
-.return-btn:hover{
-  transform:scale(1.08);
-}
-
-/* ANIMACIONES */
-@keyframes pop{
-  0%{ transform:scale(0.8); opacity:0.5;}
-  100%{ transform:scale(1); opacity:1;}
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(-10px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="container fadeIn">
 
-  <!-- TITULO -->
-  <div class="title">
-    <img src="assets/img/time.png">
-  </div>
+    <!-- titulo -->
+    <img src="../../assets/img/time.png" class="title">
 
-  <!-- FECHA -->
-  <div class="date">05/02/2025 13:38pm</div>
+    <!-- fecha -->
+    <div class="date">05/02/2025 13:38pm</div>
 
-  <!-- CONTADOR -->
-  <div class="time-box">
+    <!-- contador -->
+    <div class="timer">
 
-    <div class="row">
-      <div class="numbers" id="days"></div>
-      <div class="label">: DAYS</div>
+        <div class="time-row">
+            <div class="box" id="days">00</div>
+            <div class="label">days</div>
+        </div>
+
+        <div class="time-row">
+            <div class="box" id="hours">00</div>
+            <div class="label">hours</div>
+        </div>
+
+        <div class="time-row">
+            <div class="box" id="minutes">00</div>
+            <div class="label">minutes</div>
+        </div>
+
+        <div class="time-row">
+            <div class="box" id="seconds">00</div>
+            <div class="label">seconds</div>
+        </div>
+
     </div>
 
-    <div class="row">
-      <div class="numbers" id="hours"></div>
-      <div class="label">: HOURS</div>
+    <!-- return -->
+    <div class="return">
+        <img src="../../assets/img/return.png" onclick="goBack()">
     </div>
-
-    <div class="row">
-      <div class="numbers" id="minutes"></div>
-      <div class="label">: MINUTES</div>
-    </div>
-
-    <div class="row">
-      <div class="numbers" id="seconds"></div>
-      <div class="label">: SECONDS</div>
-    </div>
-
-  </div>
-
-  <!-- BOTON -->
-  <div class="btn">
-    <img src="assets/img/return.png" class="return-btn" onclick="history.back()">
-  </div>
 
 </div>
 
+<audio id="click" src="../../assets/audio/click.mp3"></audio>
+
 <script>
+const clickSound = document.getElementById("click");
+
+/* FECHA INICIO */
 const startDate = new Date("2025-02-05T13:38:00");
 
+/* ELEMENTOS */
+const d = document.getElementById("days");
+const h = document.getElementById("hours");
+const m = document.getElementById("minutes");
+const s = document.getElementById("seconds");
+
 function updateTime(){
-  const now = new Date();
-  const diff = now - startDate;
+    const now = new Date();
+    let diff = Math.floor((now - startDate) / 1000);
 
-  const seconds = Math.floor(diff / 1000) % 60;
-  const minutes = Math.floor(diff / (1000 * 60)) % 60;
-  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let days = Math.floor(diff / (3600 * 24));
+    diff %= (3600 * 24);
 
-  display("days", days);
-  display("hours", hours);
-  display("minutes", minutes);
-  display("seconds", seconds);
-}
+    let hours = Math.floor(diff / 3600);
+    diff %= 3600;
 
-function display(id, value){
-  const container = document.getElementById(id);
-  container.innerHTML = "";
+    let minutes = Math.floor(diff / 60);
+    let seconds = diff % 60;
 
-  const str = value.toString().padStart(2, "0");
-
-  for(let i=0; i<str.length; i++){
-    const div = document.createElement("div");
-    div.className = "num";
-    div.textContent = str[i];
-    container.appendChild(div);
-  }
+    d.textContent = days.toString().padStart(2,'0');
+    h.textContent = hours.toString().padStart(2,'0');
+    m.textContent = minutes.toString().padStart(2,'0');
+    s.textContent = seconds.toString().padStart(2,'0');
 }
 
 setInterval(updateTime, 1000);
 updateTime();
+
+function goBack(){
+    clickSound.play();
+    setTimeout(()=>{
+        window.location.href = "../../foryou/";
+    },200);
+}
 </script>
 
 </body>
