@@ -40,7 +40,7 @@ body {
     color: #a00000;
 }
 
-/* CONTENEDOR */
+/* contenedor ORIGINAL */
 .container {
     width: 100%;
     max-width: 420px;
@@ -73,7 +73,7 @@ body {
     width: 100%;
     border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    transition: transform 0.25s ease;
 }
 
 .grid img:hover {
@@ -132,7 +132,7 @@ body {
     cursor: pointer;
 }
 
-/* ANIMACIONES */
+/* animaciones */
 @keyframes heartbeat {
     0% { transform: scale(1); }
     50% { transform: scale(1.15); }
@@ -140,11 +140,11 @@ body {
 }
 
 .fadeDown {
-    animation: fadeDown 1s forwards;
+    animation: fadeDown 0.8s forwards;
 }
 
 .fadeUp {
-    animation: fadeUp 1s forwards;
+    animation: fadeUp 0.8s forwards;
 }
 
 @keyframes fadeDown {
@@ -168,7 +168,6 @@ body {
     <div class="click-text">click here</div>
 </div>
 
-<!-- CONTENIDO -->
 <div class="container" id="content">
 
     <img src="../../assets/img/fhotos.png" class="title" id="title">
@@ -222,28 +221,18 @@ const returnBtn = document.getElementById("returnBtn");
 function startPhotos(){
     clickSound.play();
 
-    music.volume = 0;
+    music.volume = 0.6; /* 🔥 sin fade */
     music.play();
-
-    let vol = 0;
-    let fade = setInterval(()=>{
-        if(vol < 0.6){
-            vol += 0.02;
-            music.volume = vol;
-        } else {
-            clearInterval(fade);
-        }
-    },120);
 
     document.querySelector(".intro").style.display = "none";
     content.style.display = "flex";
 
-    setTimeout(()=> title.classList.add("fadeDown"), 200);
-    setTimeout(()=> grid.classList.add("fadeUp"), 400);
-    setTimeout(()=> returnBtn.style.opacity = "1", 800);
+    setTimeout(()=> title.classList.add("fadeDown"), 100);
+    setTimeout(()=> grid.classList.add("fadeUp"), 300);
+    setTimeout(()=> returnBtn.style.opacity = "1", 600);
 }
 
-/* GALERÍA */
+/* GALERIA ORIGINAL */
 const images = [
 "../../assets/img/img1.png","../../assets/img/img2.png","../../assets/img/img3.png","../../assets/img/img4.png",
 "../../assets/img/img5.png","../../assets/img/img6.png","../../assets/img/img7.png","../../assets/img/img8.png",
@@ -276,10 +265,8 @@ function prevImg(){
     lightboxImg.src = images[current];
 }
 
-/* RETURN */
 function goBack(){
     clickSound.play();
-
     music.pause();
     music.currentTime = 0;
 
