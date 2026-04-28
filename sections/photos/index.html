@@ -11,13 +11,16 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
-    align-items: center;
     height: 100vh;
     overflow: hidden;
 }
 
 /* INTRO */
 .intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +43,7 @@ body {
     color: #a00000;
 }
 
-/* contenedor ORIGINAL */
+/* CONTENEDOR */
 .container {
     width: 100%;
     max-width: 420px;
@@ -52,7 +55,7 @@ body {
     box-sizing: border-box;
 }
 
-/* titulo */
+/* TITULO */
 .title {
     width: 70%;
     max-width: 260px;
@@ -60,13 +63,18 @@ body {
     opacity: 0;
 }
 
-/* grid */
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     width: 100%;
     opacity: 0;
+}
+
+/* hace que el return se vaya abajo */
+.spacer {
+    flex: 1;
 }
 
 .grid img {
@@ -80,9 +88,9 @@ body {
     transform: scale(1.05);
 }
 
-/* return */
+/* RETURN ABAJO */
 .return {
-    margin: 25px 0 10px;
+    margin: 15px 0 10px;
     opacity: 0;
 }
 
@@ -132,7 +140,7 @@ body {
     cursor: pointer;
 }
 
-/* animaciones */
+/* ANIMACIONES */
 @keyframes heartbeat {
     0% { transform: scale(1); }
     50% { transform: scale(1.15); }
@@ -170,8 +178,10 @@ body {
 
 <div class="container" id="content">
 
-    <img src="../../assets/img/fhotos.png" class="title" id="title">
+    <!-- TITULO -->
+    <img src="../../assets/img/title.png" class="title" id="title">
 
+    <!-- GRID -->
     <div class="grid" id="grid">
         <img src="../../assets/img/img1.png" onclick="openImg(0)">
         <img src="../../assets/img/img2.png" onclick="openImg(1)">
@@ -191,6 +201,9 @@ body {
         <img src="../../assets/img/img16.png" onclick="openImg(15)">
     </div>
 
+    <div class="spacer"></div>
+
+    <!-- RETURN -->
     <div class="return">
         <img src="../../assets/img/return.png" id="returnBtn" onclick="goBack()">
     </div>
@@ -217,11 +230,9 @@ const title = document.getElementById("title");
 const grid = document.getElementById("grid");
 const returnBtn = document.getElementById("returnBtn");
 
-/* INTRO */
 function startPhotos(){
     clickSound.play();
-
-    music.volume = 0.6; /* 🔥 sin fade */
+    music.volume = 0.6;
     music.play();
 
     document.querySelector(".intro").style.display = "none";
@@ -232,7 +243,7 @@ function startPhotos(){
     setTimeout(()=> returnBtn.style.opacity = "1", 600);
 }
 
-/* GALERIA ORIGINAL */
+/* GALERIA */
 const images = [
 "../../assets/img/img1.png","../../assets/img/img2.png","../../assets/img/img3.png","../../assets/img/img4.png",
 "../../assets/img/img5.png","../../assets/img/img6.png","../../assets/img/img7.png","../../assets/img/img8.png",
