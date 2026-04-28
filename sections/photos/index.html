@@ -11,12 +11,12 @@ body {
     background: #ffedf4;
     display: flex;
     justify-content: center;
-    overflow-x: hidden; /* ✅ solo bloquea horizontal */
+    overflow-x: hidden;
 }
 
 /* INTRO */
 .intro {
-    position: fixed; /* 🔥 se mantiene centrado sin romper scroll */
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -83,10 +83,10 @@ body {
     transform: scale(1.05);
 }
 
-/* RETURN REAL ABAJO */
+/* RETURN (🔥 visible siempre) */
 .return {
     margin: 25px 0 15px;
-    opacity: 0;
+    opacity: 1;
 }
 
 .return img {
@@ -194,9 +194,8 @@ body {
         <img src="../../assets/img/img16.png" onclick="openImg(15)">
     </div>
 
-    <!-- ahora sí abajo real -->
     <div class="return">
-        <img src="../../assets/img/return.png" id="returnBtn" onclick="goBack()">
+        <img src="../../assets/img/return.png" onclick="goBack()">
     </div>
 
 </div>
@@ -219,7 +218,6 @@ const music = document.getElementById("music");
 const content = document.getElementById("content");
 const title = document.getElementById("title");
 const grid = document.getElementById("grid");
-const returnBtn = document.getElementById("returnBtn");
 
 function startPhotos(){
     clickSound.play();
@@ -231,7 +229,6 @@ function startPhotos(){
 
     setTimeout(()=> title.classList.add("fadeDown"), 100);
     setTimeout(()=> grid.classList.add("fadeUp"), 300);
-    setTimeout(()=> returnBtn.style.opacity = "1", 600);
 }
 
 /* GALERIA */
