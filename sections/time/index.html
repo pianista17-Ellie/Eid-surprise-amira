@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Time</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -23,7 +23,8 @@ body{
 
 /* TITULO */
 .title img{
-  width:200px;
+  width:220px;
+  animation:fadeIn 1.2s ease;
 }
 
 /* FECHA */
@@ -52,15 +53,16 @@ body{
 
 .num{
   width:45px;
-  height:65px;
+  height:70px;
   background:#d31621;
   color:white;
   display:flex;
   justify-content:center;
   align-items:center;
   font-size:28px;
-  border-radius:10px;
-  font-weight:600;
+  border-radius:12px;
+  font-weight:700;
+  animation:pop 0.3s ease;
 }
 
 .label{
@@ -68,22 +70,35 @@ body{
   color:#d31621;
   font-size:14px;
   letter-spacing:2px;
+  font-weight:700;
 }
 
 /* BOTON */
 .btn{
-  margin-top:40px;
+  margin-top:45px;
 }
 
-button{
-  padding:10px 25px;
-  border-radius:20px;
-  border:2px solid #c9a86a;
-  background:#fff;
-  color:#1f3b5b;
-  font-weight:600;
+.return-btn{
+  width:150px;
   cursor:pointer;
+  transition:0.25s;
 }
+
+.return-btn:hover{
+  transform:scale(1.08);
+}
+
+/* ANIMACIONES */
+@keyframes pop{
+  0%{ transform:scale(0.8); opacity:0.5;}
+  100%{ transform:scale(1); opacity:1;}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-10px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
 </style>
 </head>
 
@@ -91,9 +106,9 @@ button{
 
 <div class="container">
 
-  <!-- TITULO PNG -->
+  <!-- TITULO -->
   <div class="title">
-    <img src="time.png">
+    <img src="assets/img/time.png">
   </div>
 
   <!-- FECHA -->
@@ -126,7 +141,7 @@ button{
 
   <!-- BOTON -->
   <div class="btn">
-    <button onclick="history.back()">RETURN</button>
+    <img src="assets/img/return.png" class="return-btn" onclick="history.back()">
   </div>
 
 </div>
