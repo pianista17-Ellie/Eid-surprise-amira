@@ -16,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-/* CONTENEDOR GENERAL */
+/* CONTENEDOR */
 .container {
     width: 100%;
     max-width: 420px;
@@ -29,12 +29,11 @@ body {
     position: relative;
 }
 
-/* INTRO CORAZÓN */
+/* INTRO */
 .intro {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 10px;
     cursor: pointer;
 }
@@ -56,11 +55,12 @@ body {
     color: #a00000;
 }
 
-/* TITULO MÁS GRANDE Y ARRIBA */
+/* TITULO */
 .title {
     width: 80%;
     max-width: 300px;
     margin-top: -10px;
+    opacity: 0;
 }
 
 /* PLAYER */
@@ -68,14 +68,14 @@ body {
     position: relative;
     width: 85%;
     max-width: 320px;
+    opacity: 0;
 }
 
-/* BASE */
 .spoty {
     width: 100%;
 }
 
-/* DISCO MÁS GRANDE Y ARRIBA */
+/* DISCO */
 .disc {
     position: absolute;
     top: 6%;
@@ -85,11 +85,11 @@ body {
     animation: spin 12s linear infinite;
 }
 
-/* PLAY MÁS ABAJO Y MÁS GRANDE */
+/* 🔥 PLAY AJUSTADO A LA IZQUIERDA */
 .play {
     position: absolute;
     bottom: 6%;
-    left: 50%;
+    left: 47%; /* 👈 ajuste fino */
     transform: translateX(-50%);
     width: 24%;
     cursor: pointer;
@@ -142,12 +142,21 @@ body {
     100% { bottom: 100%; opacity: 0; }
 }
 
-/* ENTRADA */
-.fadeIn {
-    animation: fadeIn 1s ease forwards;
+/* ENTRADAS */
+.fadeTitle {
+    animation: fadeDown 1s ease forwards;
 }
 
-@keyframes fadeIn {
+.fadePlayer {
+    animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeDown {
+    from {opacity:0; transform:translateY(-20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+@keyframes fadeUp {
     from {opacity:0; transform:translateY(20px);}
     to {opacity:1; transform:translateY(0);}
 }
@@ -174,9 +183,9 @@ body {
         <div class="note">♫</div>
     </div>
 
-    <img src="../../assets/img/playlist.png" class="title">
+    <img src="../../assets/img/playlist.png" class="title" id="title">
 
-    <div class="player">
+    <div class="player" id="player">
         <img src="../../assets/img/spoty.png" class="spoty">
         <img src="../../assets/img/disc.png" class="disc">
         <img src="../../assets/img/play.png" class="play" onclick="openSpotify()">
@@ -189,20 +198,38 @@ body {
 </div>
 
 <audio id="click" src="../../assets/audio/click.mp3"></audio>
-<audio id="music" src="../../assets/audio/music2arab.mp3"></audio>
+<audio id="music" src="../../assets/audio/music2arab.mp3" loop></audio>
 
 <script>
 const clickSound = document.getElementById("click");
 const music = document.getElementById("music");
 const content = document.getElementById("content");
+const title = document.getElementById("title");
+const player = document.getElementById("player");
 
 function startExperience(){
     clickSound.play();
+
+    // fade in música
+    music.volume = 0;
     music.play();
+
+    let vol = 0;
+    let fade = setInterval(()=>{
+        if(vol < 1){
+            vol += 0.05;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    },100);
 
     document.querySelector(".intro").style.display = "none";
     content.style.display = "flex";
-    content.classList.add("fadeIn");
+
+    // animaciones entrada
+    setTimeout(()=> title.classList.add("fadeTitle"), 200);
+    setTimeout(()=> player.classList.add("fadePlayer"), 500);
 }
 
 function openSpotify(){
@@ -214,6 +241,11 @@ function openSpotify(){
 
 function goBack(){
     clickSound.play();
+
+    // detener música
+    music.pause();
+    music.currentTime = 0;
+
     setTimeout(()=>{
         window.location.href = "../../foryou/";
     },200);
