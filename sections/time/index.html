@@ -1,1 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Time</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Montserrat', sans-serif;
+  background:#ffedf4;
+  display:flex;
+  justify-content:center;
+}
+
+.container{
+  width:360px;
+  text-align:center;
+  padding-top:40px;
+}
+
+/* TITULO */
+.title img{
+  width:200px;
+}
+
+/* FECHA */
+.date{
+  margin-top:10px;
+  color:#d31621;
+  font-size:14px;
+}
+
+/* CONTADOR */
+.time-box{
+  margin-top:40px;
+}
+
+.row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:15px 0;
+}
+
+.numbers{
+  display:flex;
+  gap:10px;
+}
+
+.num{
+  width:45px;
+  height:65px;
+  background:#d31621;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:28px;
+  border-radius:10px;
+  font-weight:600;
+}
+
+.label{
+  margin-left:15px;
+  color:#d31621;
+  font-size:14px;
+  letter-spacing:2px;
+}
+
+/* BOTON */
+.btn{
+  margin-top:40px;
+}
+
+button{
+  padding:10px 25px;
+  border-radius:20px;
+  border:2px solid #c9a86a;
+  background:#fff;
+  color:#1f3b5b;
+  font-weight:600;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- TITULO PNG -->
+  <div class="title">
+    <img src="time.png">
+  </div>
+
+  <!-- FECHA -->
+  <div class="date">05/02/2025 13:38pm</div>
+
+  <!-- CONTADOR -->
+  <div class="time-box">
+
+    <div class="row">
+      <div class="numbers" id="days"></div>
+      <div class="label">: DAYS</div>
+    </div>
+
+    <div class="row">
+      <div class="numbers" id="hours"></div>
+      <div class="label">: HOURS</div>
+    </div>
+
+    <div class="row">
+      <div class="numbers" id="minutes"></div>
+      <div class="label">: MINUTES</div>
+    </div>
+
+    <div class="row">
+      <div class="numbers" id="seconds"></div>
+      <div class="label">: SECONDS</div>
+    </div>
+
+  </div>
+
+  <!-- BOTON -->
+  <div class="btn">
+    <button onclick="history.back()">RETURN</button>
+  </div>
+
+</div>
+
+<script>
+const startDate = new Date("2025-02-05T13:38:00");
+
+function updateTime(){
+  const now = new Date();
+  const diff = now - startDate;
+
+  const seconds = Math.floor(diff / 1000) % 60;
+  const minutes = Math.floor(diff / (1000 * 60)) % 60;
+  const hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+  display("days", days);
+  display("hours", hours);
+  display("minutes", minutes);
+  display("seconds", seconds);
+}
+
+function display(id, value){
+  const container = document.getElementById(id);
+  container.innerHTML = "";
+
+  const str = value.toString().padStart(2, "0");
+
+  for(let i=0; i<str.length; i++){
+    const div = document.createElement("div");
+    div.className = "num";
+    div.textContent = str[i];
+    container.appendChild(div);
+  }
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+</script>
+
+</body>
+</html>
